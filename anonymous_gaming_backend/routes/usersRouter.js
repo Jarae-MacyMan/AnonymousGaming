@@ -1,21 +1,20 @@
-// const express = require('express')
-// const todoController = require('../controller/todoController')
-// const router = express.Router()
+const express = require('express')
+const userController = require('../controller/userController')
+const router = express.Router()
 
-// router.get('/', todoController.getTodos)
+router.get('/', userController.getUsers)
 
-// router.get('/:id', todoController.getSingleTodo)
+router.get('/:id', userController.getSingleUser)
 
-// router.post('/', todoController.createTodos)
+router.post('/', userController.createUser)
 
-// router.delete('/:id', todoController.deleteTodos)
+//router.delete('/:id', userController.deleteUser)
 
-// router.patch('/:id', todoController.updateTodos)
 
-// router.put('/:id', todoController.updateTodosPut) 
+router.put('/:id', userController.updateUser) 
 
 // router.all('*', (req, res) => {
 //     res.send("Does not exist")
 // })
 
-// module.exports = router
+module.exports = router
