@@ -1,6 +1,6 @@
 const usersModel = require("../models/usersModel");
 
-class UsersContoller {
+class usersContoller {
     static async getUsers(req, res) {
       const users = await usersModel.getUsersFromDB();
       res.status(200).send(users);
@@ -14,10 +14,9 @@ class UsersContoller {
   
     static async updateUser(req, res) {
         const user_id = req.params.id;
-        //const { username, email, password } = req.body;
         const { username, profile_pic, title} = req.body;
         const updatedUser = await usersModel.updateUserFromDB(username, profile_pic, title, user_id);
-        return res.status(201).send(updatedUser);
+        return res.status(201).send(updatedUser.rows[0]);
     }
 
     static async createUser(req, res) {
@@ -25,7 +24,7 @@ class UsersContoller {
       if (!username || !password || !email) {
         return res.status(404).send("Insufficient information");
       }
-      const newUser = await usersModel.createUserFromDB(username, email, password );
+      const newUser = await usersModel.createUserFromDB(username, email, password);
       return res.status(201).send(newUser);
     }
     
@@ -40,5 +39,5 @@ class UsersContoller {
     // }
   }
   
-  module.exports = UsersContoller;
+  module.exports = usersContoller;
   

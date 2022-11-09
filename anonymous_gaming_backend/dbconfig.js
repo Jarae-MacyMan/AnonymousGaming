@@ -7,13 +7,13 @@ const pool = new Pool({
 })
 
 //return a promise
-async function getPosts(){
-    //saves database query in a variable
-    const posts = await pool.query('SELECT * FROM posts').then(results => { return results.rows})
-    console.log(posts)
-}
+// async function getPosts(){
+//     //saves database query in a variable
+//     const posts = await pool.query('SELECT * FROM posts').then(results => { return results.rows})
+//     console.log(posts)
+// }
 
-getPosts()
+// getPosts()
 
 
 module.exports = pool

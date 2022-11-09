@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");
 //const dbPool = require('./dbconfig')
 const usersRouter  = require('./routes/usersRouter')
+const postsRouter  = require('./routes/postsRouter')
+
 
 
 app.use(cors());
@@ -15,6 +17,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', usersRouter)
+app.use('/posts', postsRouter)
+
 
 
 
