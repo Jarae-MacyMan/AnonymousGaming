@@ -10,7 +10,7 @@ const postsRouter  = require('./routes/postsRouter')
 app.use(cors());
 app.use(express.json());
 
-const PORT = 3000;
+const PORT = 3001;
 
 app.get('/', (req, res) => {
     res.send("")
