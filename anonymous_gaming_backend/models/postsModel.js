@@ -20,7 +20,7 @@ class PostsModel {
     }
     static createPostFromDB(user_id, content) {
         return pool.query(
-            "INSERT INTO posts ( user_id, content) VALUES ($1, $2) RETURNING *",
+            "INSERT INTO posts (user_id, content) VALUES ($1, $2) RETURNING *",
             [user_id, content])
     }
 }
