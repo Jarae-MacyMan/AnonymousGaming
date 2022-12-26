@@ -10,7 +10,7 @@ class UsersModel {
     static createUserFromDB(email, username, password) {
         return pool.query(
             "INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING *",
-            [ email, username, password])
+            [email, username, password])
 
     }
      static updateUserFromDB(username, profile_pic, title, user_id) {

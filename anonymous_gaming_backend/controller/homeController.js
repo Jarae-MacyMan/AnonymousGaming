@@ -27,24 +27,12 @@ class homeContoller {
         }
     }
 
-    static async postHomePosts(req, res) {
+    static async createHomePosts(req, res) {
         const { user_id, content } = req.body;
         const newPost = await homeModel.createPostFromDB(user_id, content);
         return res.send(newPost.rows);
     }
-
-
-    
-
-   
 }
-
-
-
-
-
-
-
 
 module.exports = homeContoller;
 

@@ -2,15 +2,10 @@ const pool = require('../dbconfig')
 
 class homeModel {
     static getHomeFromDB() {
-        //console.log("hey")
-        //const posts = pool.query('SELECT * FROM posts').then(results => { return results.rows})
-        //DESC
-        //return pool.query('SELECT * FROM posts ORDER BY posts_id ').then(results => { return results.rows}) 
-        return pool.query("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id ORDER by posts.posts_id DESC")
+       return pool.query("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id ORDER by posts.posts_id DESC")
     }
     //Get all comments for a post
     static getHomeCommentsFromDB(posts_id) {
-
         return pool.query("SELECT * FROM comments WHERE posts_id = $1",[posts_id]);
     }
     //comment on a post
@@ -24,10 +19,7 @@ class homeModel {
             "INSERT INTO posts (user_id, content) VALUES ($1, $2) RETURNING *",
             [user_id, content])
     }
-
- 
 }
-
 
 module.exports = homeModel
 

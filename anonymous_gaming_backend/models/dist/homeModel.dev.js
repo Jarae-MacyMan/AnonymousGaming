@@ -18,10 +18,6 @@ function () {
   _createClass(homeModel, null, [{
     key: "getHomeFromDB",
     value: function getHomeFromDB() {
-      //console.log("hey")
-      //const posts = pool.query('SELECT * FROM posts').then(results => { return results.rows})
-      //DESC
-      //return pool.query('SELECT * FROM posts ORDER BY posts_id ').then(results => { return results.rows}) 
       return pool.query("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id ORDER by posts.posts_id DESC");
     } //Get all comments for a post
 

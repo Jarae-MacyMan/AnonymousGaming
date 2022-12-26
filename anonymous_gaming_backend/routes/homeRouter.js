@@ -15,8 +15,10 @@ router.get("/posts/:id", homeController.getHomeComments)
 
 
 //comment on a post
-router.post("/posts/:id", homeController.postHomeComments)
-router.post("/post/:id", homeController.postHomePosts)
+router.post("/post/:id", homeController.postHomeComments)
+
+//create a post
+router.post("/post", homeController.createHomePosts)
 
 
 

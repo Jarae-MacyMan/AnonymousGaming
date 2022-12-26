@@ -95,11 +95,11 @@ function () {
       });
     }
   }, {
-    key: "postHomePosts",
-    value: function postHomePosts(req, res) {
+    key: "createHomePosts",
+    value: function createHomePosts(req, res) {
       var _req$body2, user_id, content, newPost;
 
-      return regeneratorRuntime.async(function postHomePosts$(_context4) {
+      return regeneratorRuntime.async(function createHomePosts$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
