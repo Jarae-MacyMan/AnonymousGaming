@@ -30,8 +30,8 @@ router.post("/register", authController.createRegister); //async (req, res) => {
 //     res.status(500).send("server error");
 //   }
 // });
-//router.post("/login", validInfo, authController.getLogin)
-//async (req, res) => {
+
+router.post("/login", authController.getLogin); //async (req, res) => {
 //   try {
 //     const { email, password } = req.body;
 //     const user = await pool.query("SELECT * FROM users WHERE email = $1", [

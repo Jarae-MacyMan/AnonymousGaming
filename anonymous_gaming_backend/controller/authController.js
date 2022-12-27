@@ -24,7 +24,32 @@ class authContoller {
 
             return res.status(201).send({token});
         } catch(error) {
-            res.status(500).json({ message: err.message });
+            console.error(error);
+            res.status(500).send("This email is already in use");
+        }
+    }
+
+    static async getLogin(req, res) {
+        const { email, password } = req.body;
+        try {
+            const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+
+            if (user.rows.length === 0) {
+                res.status(401).json("email is incorrect");
+            }
+
+            const validPassword = await bcrypt.compare(password, user.rows[0].password);
+
+            if (!validPassword) {
+                res.status(401).json("password is incorrect");
+            }
+
+            const token = generateToken(user.rows[0].user_id);
+
+            res.json({ token });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Server Error");
         }
     }
    

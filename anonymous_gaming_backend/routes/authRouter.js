@@ -39,7 +39,7 @@ router.post("/register", authController.createRegister)
 //   }
 // });
 
- //router.post("/login", validInfo, authController.getLogin)
+router.post("/login", authController.getLogin)
  //async (req, res) => {
 //   try {
 //     const { email, password } = req.body;

@@ -61,16 +61,66 @@ function () {
             case 15:
               _context.prev = 15;
               _context.t0 = _context["catch"](2);
-              res.status(500).json({
-                message: err.message
-              });
+              console.error(_context.t0);
+              res.status(500).send("This email is already in use");
 
-            case 18:
+            case 19:
             case "end":
               return _context.stop();
           }
         }
       }, null, null, [[2, 15]]);
+    }
+  }, {
+    key: "getLogin",
+    value: function getLogin(req, res) {
+      var _req$body2, email, password, user, validPassword, token;
+
+      return regeneratorRuntime.async(function getLogin$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _req$body2 = req.body, email = _req$body2.email, password = _req$body2.password;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return regeneratorRuntime.awrap(pool.query("SELECT * FROM users WHERE email = $1", [email]));
+
+            case 4:
+              user = _context2.sent;
+
+              if (user.rows.length === 0) {
+                res.status(401).json("email is incorrect");
+              }
+
+              _context2.next = 8;
+              return regeneratorRuntime.awrap(bcrypt.compare(password, user.rows[0].password));
+
+            case 8:
+              validPassword = _context2.sent;
+
+              if (!validPassword) {
+                res.status(401).json("password is incorrect");
+              }
+
+              token = generateToken(user.rows[0].user_id);
+              res.json({
+                token: token
+              });
+              _context2.next = 18;
+              break;
+
+            case 14:
+              _context2.prev = 14;
+              _context2.t0 = _context2["catch"](1);
+              console.error(_context2.t0);
+              res.status(500).send("Server Error");
+
+            case 18:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, null, [[1, 14]]);
     }
   }]);
 
