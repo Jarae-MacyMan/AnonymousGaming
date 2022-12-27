@@ -8,9 +8,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var pool = require('../dbconfig');
 
-var bcrypt = require("bcrypt"); // const jwtGenerator = require("../util/jwtGenerator");
-// const authorization = require("../middleware/authorization");
+var bcrypt = require("bcrypt");
 
+var _require = require("../util/jwtGenerator"),
+    generateToken = _require.generateToken;
 
 var authContoller =
 /*#__PURE__*/
@@ -23,7 +24,7 @@ function () {
     key: "createRegister",
     //get all posts
     value: function createRegister(req, res) {
-      var _req$body, username, email, password, saltRounds, hashedPassword, newUser;
+      var _req$body, username, email, password, saltRounds, hashedPassword, newUser, token;
 
       return regeneratorRuntime.async(function createRegister$(_context) {
         while (1) {
@@ -52,21 +53,24 @@ function () {
 
             case 10:
               newUser = _context.sent;
-              return _context.abrupt("return", res.status(201).send(newUser));
+              token = generateToken(newUser.rows[0].user_id);
+              return _context.abrupt("return", res.status(201).send({
+                token: token
+              }));
 
-            case 14:
-              _context.prev = 14;
+            case 15:
+              _context.prev = 15;
               _context.t0 = _context["catch"](2);
               res.status(500).json({
                 message: err.message
               });
 
-            case 17:
+            case 18:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[2, 14]]);
+      }, null, null, [[2, 15]]);
     }
   }]);
 

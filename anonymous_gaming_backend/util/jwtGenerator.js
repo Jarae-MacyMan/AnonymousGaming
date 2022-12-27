@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const secretSigningKey = process.env.SECRET_KEY || 'shh'
 
-const generateToken = (playerId) => {
-    return jwt.sign({ playerId }, secretSigningKey)
+const generateToken = (userId) => {
+    return jwt.sign({ userId }, secretSigningKey)
 }
 
 const verifyToken = (token) => {

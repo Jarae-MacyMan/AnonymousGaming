@@ -4,9 +4,9 @@ var jwt = require('jsonwebtoken');
 
 var secretSigningKey = process.env.SECRET_KEY || 'shh';
 
-var generateToken = function generateToken(playerId) {
+var generateToken = function generateToken(userId) {
   return jwt.sign({
-    playerId: playerId
+    userId: userId
   }, secretSigningKey);
 };
 

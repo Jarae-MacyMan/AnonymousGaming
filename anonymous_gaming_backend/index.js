@@ -8,7 +8,6 @@ const homeRouter  = require('./routes/homeRouter')
 const authRouter  = require('./routes/authRouter')
 
 
-//const authCheck = require('./middleware/checkAuth');
 
 
 app.use(cors());

@@ -1,13 +1,19 @@
 const url = "http://localhost:3001"
 
 let token = ""
-fetch(`${url}/home`, {
-    headers: { 
-        Authorization: `Bearer: ${token}`
-    },
-})
-.then((response) => response.json()
-.then(data => console.log(data)))
+const getComments = () => {
+    return fetch(`${url}/home`, {
+        headers: { 
+            Authorization: `Bearer: ${token}`
+        },
+    })
+    .then((response) => response.json())
+
+    .then(data => {
+        console.log(data)
+        return data
+    })
+}
 
 const signUpForm = document.getElementById("sign-up-form")
 
@@ -31,4 +37,13 @@ signUpForm.addEventListener("submit", async function (event) {
             password,
         })
     })
+
+    const responseData = await respose.json()
+    token = responseData.token
+})
+
+const getCommentsBtn = document.getElementById('get-comments')
+
+getCommentsBtn.addEventListener('click', () => {
+    getComments()
 })

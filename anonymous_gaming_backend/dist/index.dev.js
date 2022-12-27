@@ -13,8 +13,7 @@ var postsRouter = require('./routes/postsRouter');
 
 var homeRouter = require('./routes/homeRouter');
 
-var authRouter = require('./routes/authRouter'); //const authCheck = require('./middleware/checkAuth');
-
+var authRouter = require('./routes/authRouter');
 
 app.use(cors());
 app.use(express.json());

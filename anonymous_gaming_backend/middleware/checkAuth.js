@@ -1,3 +1,6 @@
+const { verifyToken } = require('../util/jwtGenerator.js');
+
+
 const authCheck = (req, res, next) => {
     //next = middlewear
     const headers = req.headers

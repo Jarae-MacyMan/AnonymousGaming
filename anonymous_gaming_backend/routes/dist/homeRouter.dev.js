@@ -4,12 +4,14 @@ var express = require('express');
 
 var router = express.Router();
 
-var homeController = require('../controller/homeController'); //
+var homeController = require('../controller/homeController');
+
+var authCheck = require('../middleware/checkAuth'); //
 //console.log(pool)
 //Get all questions
 
 
-router.get("/", homeController.getHome); //Get all comments for a post
+router.get("/", authCheck, homeController.getHome); //Get all comments for a post
 
 router.get("/posts/:id", homeController.getHomeComments); //comment on a post
 

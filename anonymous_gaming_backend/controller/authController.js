@@ -1,13 +1,8 @@
 const pool = require('../dbconfig')
 
-
-
 const bcrypt = require("bcrypt");
 
-// const jwtGenerator = require("../util/jwtGenerator");
-
-// const authorization = require("../middleware/authorization");
-
+const {generateToken} = require("../util/jwtGenerator");
 
 class authContoller {
     //get all posts
@@ -25,7 +20,9 @@ class authContoller {
                 "INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING *",
                 [ email, username, hashedPassword])
 
-            return res.status(201).send(newUser);
+            const token = generateToken(newUser.rows[0].user_id);
+
+            return res.status(201).send({token});
         } catch(error) {
             res.status(500).json({ message: err.message });
         }

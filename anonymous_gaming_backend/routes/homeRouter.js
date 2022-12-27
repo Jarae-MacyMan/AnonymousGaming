@@ -1,13 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const homeController = require('../controller/homeController')
+const authCheck = require('../middleware/checkAuth');
+
 
 //
 //console.log(pool)
 
 
 //Get all questions
-router.get("/", homeController.getHome)
+router.get("/", authCheck, homeController.getHome)
 
 
 //Get all comments for a post

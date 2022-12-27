@@ -1,5 +1,8 @@
 "use strict";
 
+var _require = require('../util/jwtGenerator.js'),
+    verifyToken = _require.verifyToken;
+
 var authCheck = function authCheck(req, res, next) {
   //next = middlewear
   var headers = req.headers;
