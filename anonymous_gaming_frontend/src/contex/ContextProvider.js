@@ -11,39 +11,39 @@ const ContextProvider = ({ children }) => {
 
   const [userInfo, setUserInfo] = useState({});
 
-  // const [userQuestions, setUserQuestions] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
 
-  // const [allQuestions, setAllQuestions] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
 
-  // const [answers, setAnswers] = useState([]);
+  const [comments, setComments] = useState([]);
 
-  // const [question, setQuestion] = useState("");
+  const [post, setPost] = useState(""); //constrolled state
 
-  // const [newQuestion, setNewQuestion] = useState("")
+  const [newPost, setNewPost] = useState("")
 
-  // const [answer, setAnswer] = useState("");
+  const [comment, setComment] = useState("");
 
-  // const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
 
   const state = {
     inputs,
     setInputs,
     userInfo,
     setUserInfo,
-    // userQuestions,
-    // setUserQuestions,
-    // question,
-    // setQuestion,
-    // newQuestion,
-    // setNewQuestion,
-    // allQuestions, 
-    // setAllQuestions,
-    // isEditing,
-    // setIsEditing,
-    // answers,
-    // setAnswers,
-    // answer,
-    // setAnswer
+    userPosts,
+    setUserPosts,
+    post,
+    setPost,
+    newPost,
+    setNewPost,
+    allPosts, 
+    setAllPosts,
+    isEditing,
+    setIsEditing,
+    comments,
+    setComments,
+    comment,
+    setComment
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;
