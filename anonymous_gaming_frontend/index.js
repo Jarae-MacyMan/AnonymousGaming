@@ -11,8 +11,10 @@ const getComments = () => {
 
     .then(data => {
         console.log(data)
+        console.log(token)
         return data
     })
+   
 }
 
 const signUpForm = document.getElementById("sign-up-form")
@@ -55,9 +57,7 @@ logInForm.addEventListener("submit", async function (event) {
 
     const respose = await fetch("http://localhost:3001/auth/login", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
            
             email,

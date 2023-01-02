@@ -12,6 +12,7 @@ var getComments = function getComments() {
     return response.json();
   }).then(function (data) {
     console.log(data);
+    console.log(token);
     return data;
   });
 };
