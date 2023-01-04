@@ -66,7 +66,7 @@ const Home = (props) => {
 
   return (
     <div>
-       <p>{userPosts}</p>
+       <div>{userPosts}</div>
     </div>
   );
 };
