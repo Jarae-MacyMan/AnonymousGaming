@@ -6,7 +6,8 @@ const ContextProvider = ({ children }) => {
     username: "",
     password: "",
     email: "",
-    title: ""
+    title: "",
+    profile_pic: ""
   });
 
   const [userInfo, setUserInfo] = useState({});
@@ -24,6 +25,8 @@ const ContextProvider = ({ children }) => {
   const [comment, setComment] = useState("");
 
   const [isEditing, setIsEditing] = useState(false)
+
+  const [profile_pic, setProfile_pic] = useState("")
 
   const state = {
     inputs,
@@ -43,7 +46,9 @@ const ContextProvider = ({ children }) => {
     comments,
     setComments,
     comment,
-    setComment
+    setComment,
+    profile_pic,
+    setProfile_pic
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;

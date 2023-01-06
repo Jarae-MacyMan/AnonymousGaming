@@ -11,6 +11,8 @@ import {
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import Dashboard from "./components/dashboard/Dashboard";
+
 
 
 
@@ -71,6 +73,17 @@ function App() {
             element={
               isAuthenticated ? (
                 <Home setAuth={setAuth} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/dashboard"
+            element={
+              isAuthenticated ? (
+                <Dashboard setAuth={setAuth} />
               ) : (
                 <Navigate to="/login" />
               )

@@ -6,20 +6,37 @@ import Context from "../../context/context";
 //import UserInfo from "../UserInfo";
 
 
-
-
-
 const Home = (props) => {
   
   const context = useContext(Context);
-  
-  const getAllPosts = async () => {
+
+
+  const getUserInfo = async () => {
     try {
       const response = await fetch("http://localhost:3001/home", {
         method: "GET",
         headers: {
           Authorization: `Bearer: ${localStorage.token}`,
-          // token: localStorage.token,
+        }
+      });
+
+      const parseRes = await response.json();
+      console.log(parseRes)
+      context.setUserInfo(parseRes.userInfo.userData);
+      context.setUserPosts(parseRes.userInfo.userPosts);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log(context.userInfo)
+  
+  const getAllPosts = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/home/posts", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer: ${localStorage.token}`,
           "Content-Type": "application/json",
         },
       });
@@ -31,44 +48,63 @@ const Home = (props) => {
       console.error(error);
     }
   };
-  console.log(context.allPosts)
+  //console.log(context.allPosts)
 
   const userPosts = context.allPosts.map((element) => {
     return <div> content={element.content} username = {element.username} </div>;
   });
 
-
   useEffect(() => {
     getAllPosts();
-    //console.log()
   }, []);
 
-  
+  const createPost = async (e) => {
+    e.preventDefault();
+    try {
+      const body = { post: context.post };
+      const response = await fetch("http://localhost:3001/home/post", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer: ${localStorage.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false)
+      const parseRes = await response.json();
+      context.setNewPost(parseRes)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(
+    () => {
+      getUserInfo();
+    },
+    [context.newPost],
+    [context.userInfo]
+  );
+
+  const onChange = (e) => {
+    context.setPost(e.target.value);
+  };
 
   const setAuth = (boolean) => {
     props.setIsAuthenticated(boolean);
-  };
-
-  const logout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-    setAuth(false);
-  };
-  //  const onChange = (e) => {
-  //   context.setQuestion(e.target.value);
-  // };
-
-  
+  }
 
   return (
     <div>
-       <div>{userPosts}</div>
+      <div> {context.userInfo.username} </div>
+      <div>{userPosts}</div>
+      <div>  
+        <input onChange={(e) => onChange(e)} value={context.post}/>
+        <button onClick={createPost} >Post</button>
+      </div>
+      
     </div>
-  );
+  )
 };
 
 export default Home;
