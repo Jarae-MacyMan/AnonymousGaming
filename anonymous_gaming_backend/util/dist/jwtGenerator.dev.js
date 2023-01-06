@@ -2,16 +2,16 @@
 
 var jwt = require('jsonwebtoken');
 
-var secretSigningKey = process.env.SECRET_KEY || 'shh';
-
 var generateToken = function generateToken(userId) {
-  return jwt.sign({
-    userId: userId
-  }, secretSigningKey);
+  //send user ID to front end 
+  var payload = {
+    user: userId
+  };
+  return jwt.sign(payload, process.env.SECRET_KEY || 'shh');
 };
 
 var verifyToken = function verifyToken(token) {
-  return jwt.verify(token, secretSigningKey);
+  return jwt.verify(token, process.env.SECRET_KEY || 'shh');
 };
 
 module.exports = {

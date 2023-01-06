@@ -62,7 +62,7 @@ function () {
               _context.prev = 15;
               _context.t0 = _context["catch"](2);
               console.error(_context.t0);
-              res.status(500).send("This email is already in use");
+              return _context.abrupt("return", res.status(500).send("This email is already in use"));
 
             case 19:
             case "end":
@@ -88,39 +88,68 @@ function () {
             case 4:
               user = _context2.sent;
 
-              if (user.rows.length === 0) {
-                res.status(401).json("email is incorrect");
+              if (!(user.rows.length === 0)) {
+                _context2.next = 7;
+                break;
               }
 
-              _context2.next = 8;
+              return _context2.abrupt("return", res.status(401).json("email is incorrect"));
+
+            case 7:
+              _context2.next = 9;
               return regeneratorRuntime.awrap(bcrypt.compare(password, user.rows[0].password));
 
-            case 8:
+            case 9:
               validPassword = _context2.sent;
 
-              if (!validPassword) {
-                res.status(401).json("password is incorrect");
+              if (validPassword) {
+                _context2.next = 12;
+                break;
               }
 
-              token = generateToken(user.rows[0].user_id);
-              res.json({
-                token: token
-              });
-              _context2.next = 18;
-              break;
+              return _context2.abrupt("return", res.status(401).json("password is incorrect"));
 
-            case 14:
-              _context2.prev = 14;
+            case 12:
+              token = generateToken(user.rows[0].user_id);
+              return _context2.abrupt("return", res.json({
+                token: token
+              }));
+
+            case 16:
+              _context2.prev = 16;
               _context2.t0 = _context2["catch"](1);
               console.error(_context2.t0);
               res.status(500).send("Server Error");
 
-            case 18:
+            case 20:
             case "end":
               return _context2.stop();
           }
         }
-      }, null, null, [[1, 14]]);
+      }, null, null, [[1, 16]]);
+    }
+  }, {
+    key: "getVerified",
+    value: function getVerified(req, res) {
+      return regeneratorRuntime.async(function getVerified$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              return _context3.abrupt("return", res.json(true));
+
+            case 4:
+              _context3.prev = 4;
+              _context3.t0 = _context3["catch"](0);
+              console.error(_context3.t0);
+              return _context3.abrupt("return", res.status(500).send("Server Error"));
+
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, null, null, [[0, 4]]);
     }
   }]);
 

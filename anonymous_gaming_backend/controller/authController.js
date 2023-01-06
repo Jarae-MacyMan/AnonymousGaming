@@ -14,7 +14,7 @@ class authContoller {
             const hashedPassword = await bcrypt.hash(password, saltRounds);
 
             if (!username || !password || !email) {
-            return res.status(404).send("Insufficient information");
+                return res.status(404).send("Insufficient information");
             }
             const newUser = await pool.query(
                 "INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING *",
@@ -25,7 +25,7 @@ class authContoller {
             return res.status(201).send({token});
         } catch(error) {
             console.error(error);
-            res.status(500).send("This email is already in use");
+            return res.status(500).send("This email is already in use");
         }
     }
 
@@ -35,23 +35,34 @@ class authContoller {
             const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
 
             if (user.rows.length === 0) {
-                res.status(401).json("email is incorrect");
+                return res.status(401).json("email is incorrect");
             }
 
             const validPassword = await bcrypt.compare(password, user.rows[0].password);
 
             if (!validPassword) {
-                res.status(401).json("password is incorrect");
+                return res.status(401).json("password is incorrect");
             }
 
             const token = generateToken(user.rows[0].user_id);
 
-            res.json({ token });
+            return res.json({ token });
         } catch (error) {
             console.error(error);
             res.status(500).send("Server Error");
         }
     }
+    static async getVerified (req, res) {
+        try {
+            return res.json(true);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send("Server Error");
+        }
+    }
+
+
+
    
 
 }

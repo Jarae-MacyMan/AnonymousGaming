@@ -26,6 +26,7 @@ var authCheck = function authCheck(req, res, next) {
 
   try {
     decodedToken = verifyToken(authToken);
+    req.user = decodedToken.user;
   } catch (error) {
     console.log(error.message);
     return res.status(401).json({

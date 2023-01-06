@@ -4,8 +4,9 @@ var express = require('express');
 
 var router = express.Router();
 
-var authController = require('../controller/authController'); //const validInfo = require("../middleware/validInfo");
+var authController = require('../controller/authController');
 
+var authCheck = require('../middleware/checkAuth');
 
 router.post("/register", authController.createRegister); //async (req, res) => {
 //   try {
@@ -51,8 +52,8 @@ router.post("/login", authController.getLogin); //async (req, res) => {
 //     res.status(500).send("Server Error");
 //   }
 // });
-//router.get("/is-verified", authorization, authController.getVerified)
-//async (req, res) => {
+
+router.get("/is-verified", authCheck, authController.getVerified); //async (req, res) => {
 //   try {
 //     res.json(true);
 //   } catch (error) {

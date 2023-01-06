@@ -6,23 +6,23 @@ const authCheck = require('../middleware/checkAuth');
 
 //
 //console.log(pool)
+//Get users info
+router.get("/", authCheck, homeController.getUsers)
 
-
-//Get all questions
-router.get("/", authCheck, homeController.getHome)
+//Get all posts
+router.get("/posts", authCheck, homeController.getHome)
+//create a post
+router.post("/post", authCheck, homeController.createHomePosts)
 
 
 //Get all comments for a post
-router.get("/posts/:id", homeController.getHomeComments)
-
-
+router.get("/comments", authCheck, homeController.getHomeComments)
 //comment on a post
-router.post("/post/:id", homeController.postHomeComments)
-
-//create a post
-router.post("/post", homeController.createHomePosts)
+router.post("/post/:id", authCheck, homeController.postHomeComments)
 
 
+
+//get all comments
 
 //like a post
 //router.post("/like",  async (req, res) => {})

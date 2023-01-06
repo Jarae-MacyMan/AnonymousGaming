@@ -6,6 +6,8 @@ const usersRouter  = require('./routes/usersRouter')
 const postsRouter  = require('./routes/postsRouter')
 const homeRouter  = require('./routes/homeRouter')
 const authRouter  = require('./routes/authRouter')
+const dashboardRouter  = require('./routes/dashboardRouter')
+
 
 
 
@@ -25,6 +27,8 @@ app.use("/auth", authRouter);
 app.use('/users', usersRouter)
 app.use('/posts', postsRouter)
 app.use('/home', homeRouter)
+app.use('/dashboard', dashboardRouter)
+
 
 
 

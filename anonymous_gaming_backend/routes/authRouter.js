@@ -4,7 +4,9 @@ const authController = require('../controller/authController')
 
 
 
-//const validInfo = require("../middleware/validInfo");
+
+const authCheck = require('../middleware/checkAuth');
+
 
 
 
@@ -66,7 +68,7 @@ router.post("/login", authController.getLogin)
 //   }
 // });
 
- //router.get("/is-verified", authorization, authController.getVerified)
+ router.get("/is-verified", authCheck, authController.getVerified)
  //async (req, res) => {
 //   try {
 //     res.json(true);

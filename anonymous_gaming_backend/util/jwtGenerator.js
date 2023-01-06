@@ -1,13 +1,17 @@
 const jwt = require('jsonwebtoken');
 
-const secretSigningKey = process.env.SECRET_KEY || 'shh'
 
 const generateToken = (userId) => {
-    return jwt.sign({ userId }, secretSigningKey)
+    //send user ID to front end 
+    const payload = {
+        user: userId,
+    };
+
+    return jwt.sign(payload, process.env.SECRET_KEY || 'shh')
 }
 
 const verifyToken = (token) => {
-    return jwt.verify(token, secretSigningKey)
+    return jwt.verify(token, process.env.SECRET_KEY || 'shh')
 }
 
 module.exports = {
