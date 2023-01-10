@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import { useContext, useState } from "react";
 import React from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import Context from "../../context/context";
 //import UserInfo from "../UserInfo";
 
@@ -90,9 +90,9 @@ const Home = (props) => {
     context.setPost(e.target.value);
   };
 
-  const setAuth = (boolean) => {
-    props.setIsAuthenticated(boolean);
-  }
+  // const setAuth = (boolean) => {
+  //   props.setIsAuthenticated(boolean);
+  // }
 
   return (
     <div>

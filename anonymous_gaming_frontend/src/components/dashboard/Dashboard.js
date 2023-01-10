@@ -1,7 +1,7 @@
 import Context from "../../context/context";
 import { Link } from "react-router-dom";
 // import UserInfo from "../UserInfo";
-// import UserQuestions from "../UserQuestions";
+import UserPostDisplay from "../posts/UserPostDisplay";
 // import Navbar from "../Navbar";
 // import dashboard from "./dashboard.css";
 // import Footer from "../Footer"
@@ -31,7 +31,7 @@ const Dashboard = (props) => {
       });
 
       const parseRes = await response.json();
-      console.log(parseRes)
+      //console.log(parseRes)
       context.setUserInfo(parseRes.userInfo.userData);
       context.setUserPosts(parseRes.userInfo.userPosts);
     } catch (error) {
@@ -39,7 +39,7 @@ const Dashboard = (props) => {
     }
   };
   
-  console.log(context.userInfo)
+  //console.log(context.userInfo)
 
 
   const createPost = async (e) => {
@@ -74,29 +74,29 @@ const Dashboard = (props) => {
     context.setPost(e.target.value);
   };
 
-  const getComments = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/browse/comments/`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer: ${localStorage.token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const parseRes = await response.json();
-      context.setComments(parseRes);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getComments = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:3001/browse/comments/`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: `Bearer: ${localStorage.token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     const parseRes = await response.json();
+  //     context.setComments(parseRes);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   
-  useEffect(() => {
-    getComments();
-    // console.log(context.answers)
-  },[])
+  // useEffect(() => {
+  //   getComments();
+  //   // console.log(context.answers)
+  // },[])
 
   
   const setAuth = (boolean) => {
@@ -111,6 +111,9 @@ const Dashboard = (props) => {
 
   return (
     <div>
+        <UserPostDisplay/>
+
+
         <div> {context.userInfo.username} </div>    
         <div >
           <input  label="Type here"  onChange={(e) => onChange(e)} value={context.post} />

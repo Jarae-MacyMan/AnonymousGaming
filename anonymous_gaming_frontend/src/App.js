@@ -52,7 +52,7 @@ function App() {
               !isAuthenticated ? (
                 <Login setAuth={setAuth} />
               ) : (
-                <Navigate to="/home" />
+                <Navigate to="/dashboard" />
               )
             }
           />

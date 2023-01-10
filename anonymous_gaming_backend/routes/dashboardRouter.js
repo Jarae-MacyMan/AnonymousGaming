@@ -18,6 +18,8 @@ router.delete("/posts/:id", dashboardController.deletePost)
 //Update profile info
 router.put("/", authCheck, dashboardController.editInfo)
 
+
+
 module.exports = router;
 
 

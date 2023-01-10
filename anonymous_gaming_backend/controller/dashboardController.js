@@ -60,14 +60,15 @@ class dashboardContoller {
         }
     }
 
-    //Delete a question 
+    //Delete a post
     static async deletePost(req, res) {
     try {
+      //const posts_id = req.params.id
       const {id} = req.params;
       console.log(id)
-      pool.query("DELETE FROM answers WHERE answers.question_id = $1", [id])
-      const deletedQuestion = await pool.query("DELETE FROM questions WHERE question_id = $1 RETURNING *", [id])
-      res.json(deletedQuestion.rows)
+      //pool.query("DELETE FROM posts WHERE posts_id = $1", [id])
+      const deletedPost = await pool.query("DELETE FROM posts WHERE posts_id = $1 RETURNING *", [id])
+      res.json(deletedPost.rows)
     } catch (error) {
       console.error(error)
       res.status(500).json("server error")

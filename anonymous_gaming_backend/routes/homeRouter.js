@@ -22,6 +22,7 @@ router.post("/post/:id", authCheck, homeController.postHomeComments)
 
 
 
+
 //get all comments
 
 //like a post

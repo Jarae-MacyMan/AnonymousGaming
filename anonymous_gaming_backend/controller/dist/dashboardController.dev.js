@@ -130,41 +130,42 @@ function () {
           }
         }
       }, null, null, [[0, 9]]);
-    } //Delete a question 
+    } //Delete a post
 
   }, {
     key: "deletePost",
     value: function deletePost(req, res) {
-      var id, deletedQuestion;
+      var id, deletedPost;
       return regeneratorRuntime.async(function deletePost$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
+              //const posts_id = req.params.id
               id = req.params.id;
-              console.log(id);
-              pool.query("DELETE FROM answers WHERE answers.question_id = $1", [id]);
-              _context4.next = 6;
-              return regeneratorRuntime.awrap(pool.query("DELETE FROM questions WHERE question_id = $1 RETURNING *", [id]));
+              console.log(id); //pool.query("DELETE FROM posts WHERE posts_id = $1", [id])
 
-            case 6:
-              deletedQuestion = _context4.sent;
-              res.json(deletedQuestion.rows);
-              _context4.next = 14;
+              _context4.next = 5;
+              return regeneratorRuntime.awrap(pool.query("DELETE FROM posts WHERE posts_id = $1 RETURNING *", [id]));
+
+            case 5:
+              deletedPost = _context4.sent;
+              res.json(deletedPost.rows);
+              _context4.next = 13;
               break;
 
-            case 10:
-              _context4.prev = 10;
+            case 9:
+              _context4.prev = 9;
               _context4.t0 = _context4["catch"](0);
               console.error(_context4.t0);
               res.status(500).json("server error");
 
-            case 14:
+            case 13:
             case "end":
               return _context4.stop();
           }
         }
-      }, null, null, [[0, 10]]);
+      }, null, null, [[0, 9]]);
     } //Update profile info
 
   }, {
