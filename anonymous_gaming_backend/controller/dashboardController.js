@@ -32,8 +32,8 @@ class dashboardContoller {
         try {
         const { id } = req.params;
         const comments = await pool.query(
-            "SELECT * FROM comments WHERE post_id = $1",
-            [posts_id]
+            "SELECT * FROM comments WHERE posts_id = $1",
+            [id]
         );
         if (comments.rows.length !== 0) {
             res.json(comments.rows);

@@ -72,7 +72,7 @@ function () {
               _context2.prev = 0;
               id = req.params.id;
               _context2.next = 4;
-              return regeneratorRuntime.awrap(pool.query("SELECT * FROM comments WHERE post_id = $1", [posts_id]));
+              return regeneratorRuntime.awrap(pool.query("SELECT * FROM comments WHERE posts_id = $1", [id]));
 
             case 4:
               comments = _context2.sent;

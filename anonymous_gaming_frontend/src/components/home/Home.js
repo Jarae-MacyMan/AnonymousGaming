@@ -4,6 +4,7 @@ import React from "react";
 //import { Link } from "react-router-dom";
 import Context from "../../context/context";
 //import UserInfo from "../UserInfo";
+import HomePost from "../posts/HomePosts"
 
 
 const Home = (props) => {
@@ -51,12 +52,14 @@ const Home = (props) => {
   //console.log(context.allPosts)
 
   const userPosts = context.allPosts.map((element) => {
-    return <div> content={element.content} username = {element.username} </div>;
+    return <HomePost id={element.posts_id} key={element.id} content={element.content} username = {element.username}  />;
   });
 
   useEffect(() => {
     getAllPosts();
   }, []);
+
+
 
   const createPost = async (e) => {
     e.preventDefault();
@@ -90,13 +93,35 @@ const Home = (props) => {
     context.setPost(e.target.value);
   };
 
-  // const setAuth = (boolean) => {
-  //   props.setIsAuthenticated(boolean);
-  // }
+
+
+  const getComments = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/home/post/`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer: ${localStorage.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const parseRes = await response.json();
+      context.setComments(parseRes);
+      console.log(parseRes)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getComments();
+    console.log(context.comments)
+  },[])
 
   return (
     <div>
-      <div> {context.userInfo.username} </div>
       <div>{userPosts}</div>
       <div>  
         <input onChange={(e) => onChange(e)} value={context.post}/>

@@ -92,9 +92,10 @@ const UserPostFormat = (props) => {
       setDisplayComments(false);
     }
   };
+  console.log(context.comments)
 
   const comments = context.comments.filter((element) => {
-    return element.post_id === id;
+    return element.posts_id === id;
   });
 
 
@@ -117,16 +118,16 @@ const UserPostFormat = (props) => {
             <span>{username}</span>
             {/* <span>{DateTime.fromISO(date).toRelative()}</span> */}
         </div>
-
-             <span className="postText">{content}</span>
+        {/* className="postText" */}
+             <span>{content}</span>
 
         <div >
           <button onClick={(e) => deletePost(e)} > delete</button>
         </div>
 
-     
+        <div>{postComments}</div>
   
-        {displayComments && <div>{postComments}</div>}
+        {/* {displayComments && <div>{postComments}</div>} */}
     </div>
   );
 };

@@ -41,12 +41,26 @@ class homeContoller {
             res.json(comments.rows);
         }
     }
+
+    static async getHomeComment (req, res) {
+        try {
+          const comments = await pool.query("SELECT * FROM comments INNER JOIN users ON comments.user_id = users.user_id ORDER by comments.comments_id DESC")
+          res.json(comments.rows)
+        } catch (error) {
+          console.error(error)
+          res.status(500).json("server error")
+        }
+    }
+
+
     //comment on a post
     static async postHomeComments(req, res) {
         try {
             const user_id = req.user;
             const { comment } = req.body;
             const posts_id = req.params.id
+            //const { id } = req.params;
+
 
             const postComment = await pool.query(
                 "INSERT INTO comments (content, posts_id, user_id) VALUES($1, $2, $3) RETURNING *",
@@ -55,7 +69,7 @@ class homeContoller {
             
             const allComments = await pool.query("SELECT * FROM comments JOIN users ON comments.user_id = users.user_id ORDER BY comments.comments_id DESC")
 
-            console.log(allComments)
+            //console.log(allComments)
             res.json(allComments.rows);
         } catch (error) {
             console.error(error);

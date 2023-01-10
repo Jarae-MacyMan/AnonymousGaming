@@ -7,7 +7,7 @@ const authCheck = require('../middleware/checkAuth');
 router.get("/", authCheck, dashboardController.getUsers)
 
 //get comments for a post
-router.get("/posts/:id", authCheck, dashboardController.getComments)
+router.get("/posts/:id",  dashboardController.getComments)
 
 //create a post
 router.post("/", authCheck, dashboardController.createPost)

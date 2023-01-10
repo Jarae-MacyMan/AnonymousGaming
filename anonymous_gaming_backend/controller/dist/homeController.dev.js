@@ -110,76 +110,108 @@ function () {
           }
         }
       });
+    }
+  }, {
+    key: "getHomeComment",
+    value: function getHomeComment(req, res) {
+      var comments;
+      return regeneratorRuntime.async(function getHomeComment$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return regeneratorRuntime.awrap(pool.query("SELECT * FROM comments INNER JOIN users ON comments.user_id = users.user_id ORDER by comments.comments_id DESC"));
+
+            case 3:
+              comments = _context4.sent;
+              res.json(comments.rows);
+              _context4.next = 11;
+              break;
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](0);
+              console.error(_context4.t0);
+              res.status(500).json("server error");
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, null, null, [[0, 7]]);
     } //comment on a post
 
   }, {
     key: "postHomeComments",
     value: function postHomeComments(req, res) {
       var user_id, comment, posts_id, postComment, allComments;
-      return regeneratorRuntime.async(function postHomeComments$(_context4) {
+      return regeneratorRuntime.async(function postHomeComments$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _context4.prev = 0;
+              _context5.prev = 0;
               user_id = req.user;
               comment = req.body.comment;
-              posts_id = req.params.id;
-              _context4.next = 6;
+              posts_id = req.params.id; //const { id } = req.params;
+
+              _context5.next = 6;
               return regeneratorRuntime.awrap(pool.query("INSERT INTO comments (content, posts_id, user_id) VALUES($1, $2, $3) RETURNING *", [comment, posts_id, user_id]));
 
             case 6:
-              postComment = _context4.sent;
-              _context4.next = 9;
+              postComment = _context5.sent;
+              _context5.next = 9;
               return regeneratorRuntime.awrap(pool.query("SELECT * FROM comments JOIN users ON comments.user_id = users.user_id ORDER BY comments.comments_id DESC"));
 
             case 9:
-              allComments = _context4.sent;
-              console.log(allComments);
+              allComments = _context5.sent;
+              //console.log(allComments)
               res.json(allComments.rows);
-              _context4.next = 18;
+              _context5.next = 17;
               break;
 
-            case 14:
-              _context4.prev = 14;
-              _context4.t0 = _context4["catch"](0);
-              console.error(_context4.t0);
+            case 13:
+              _context5.prev = 13;
+              _context5.t0 = _context5["catch"](0);
+              console.error(_context5.t0);
               res.status(500).json("server error");
 
-            case 18:
+            case 17:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, null, null, [[0, 14]]);
+      }, null, null, [[0, 13]]);
     }
   }, {
     key: "createHomePosts",
     value: function createHomePosts(req, res) {
       var post, createPost;
-      return regeneratorRuntime.async(function createHomePosts$(_context5) {
+      return regeneratorRuntime.async(function createHomePosts$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              _context5.prev = 0;
+              _context6.prev = 0;
               post = req.body.post;
-              _context5.next = 4;
+              _context6.next = 4;
               return regeneratorRuntime.awrap(pool.query("INSERT INTO posts (content, user_id) VALUES ($1, $2) RETURNING *", [post, req.user]));
 
             case 4:
-              createPost = _context5.sent;
+              createPost = _context6.sent;
               res.json(createPost.rows[0]);
-              _context5.next = 12;
+              _context6.next = 12;
               break;
 
             case 8:
-              _context5.prev = 8;
-              _context5.t0 = _context5["catch"](0);
-              console.error(_context5.t0);
+              _context6.prev = 8;
+              _context6.t0 = _context6["catch"](0);
+              console.error(_context6.t0);
               res.status(500).json("server error");
 
             case 12:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
         }
       }, null, null, [[0, 8]]);

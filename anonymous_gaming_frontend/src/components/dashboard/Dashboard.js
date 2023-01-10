@@ -74,29 +74,32 @@ const Dashboard = (props) => {
     context.setPost(e.target.value);
   };
 
-  // const getComments = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3001/browse/comments/`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           Authorization: `Bearer: ${localStorage.token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     const parseRes = await response.json();
-  //     context.setComments(parseRes);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const getComments = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/home/post/`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer: ${localStorage.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const parseRes = await response.json();
+      context.setComments(parseRes);
+      //console.log(parseRes)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  //console.log(context.comments)
   
-  // useEffect(() => {
-  //   getComments();
-  //   // console.log(context.answers)
-  // },[])
+  useEffect(() => {
+    getComments();
+    //console.log(context.comments)
+  },[])
+
 
   
   const setAuth = (boolean) => {
