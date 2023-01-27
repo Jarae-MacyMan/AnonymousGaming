@@ -1,10 +1,11 @@
 import {useEffect} from "react";
 import { useContext, useState } from "react";
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Context from "../../context/context";
 //import UserInfo from "../UserInfo";
 import HomePost from "../posts/HomePosts"
+import Card from '@mui/material/Card';
 
 
 const Home = (props) => {
@@ -122,6 +123,11 @@ const Home = (props) => {
 
   return (
     <div>
+      <div className="position-absolute start-0" >
+        <Link to="/dashboard"> Dashboard </Link>
+      </div>
+
+
       <div>{userPosts}</div>
       <div>  
         <input onChange={(e) => onChange(e)} value={context.post}/>

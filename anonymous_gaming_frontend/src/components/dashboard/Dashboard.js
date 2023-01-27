@@ -114,7 +114,11 @@ const Dashboard = (props) => {
 
   return (
     <div>
-        <UserPostDisplay/>
+
+    <div className="position-absolute start-0" >
+      <Link to="/home"> Home</Link>
+    </div>
+
 
 
         <div> {context.userInfo.username} </div>    
@@ -122,6 +126,8 @@ const Dashboard = (props) => {
           <input  label="Type here"  onChange={(e) => onChange(e)} value={context.post} />
           <button  onClick={createPost} variant="contained">POST</button>
         </div>
+
+        <UserPostDisplay/>
       </div>  
   );
 };

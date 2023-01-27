@@ -8,6 +8,7 @@ import * as React from 'react';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Card from '@mui/material/Card';
 
 
 
@@ -104,46 +105,30 @@ const HomePost = (props) => {
 
   return (
     <div>
-    
+          <Card variant="outlined" sx={{ maxWidth: 400 }} className="mx-auto pb-2 mb-2 mt-2" >
+
       <div>
-       
-          <div>
-            <div>
-              <div>
-                
-                <span> {username}</span>
+        
+
+                <div>
+                    <span> {username}</span>
+                </div>
                 {/* <span className="postDate">
                   {DateTime.fromISO(date).toRelative()}
                 </span> */}
-              </div>
-            </div>
-            
-
-           
-         
-        
-            <span>{content}</span>
+                <div>
+                    <span>{content}</span>
+                </div>
  
-       
-            
             <div >
-              <div>
-
-            
-                <button onClick={(e) => revealComment(e)}>com</button>
+                <button onClick={(e) => revealComment(e)}>see comments</button>
                 <AddCommentIcon  
                   aria-owns={open ? 'mouse-over-popover' : undefined}
                   aria-haspopup="true"
                   onMouseEnter={handlePopoverOpen}
                   onMouseLeave={handlePopoverClose}
                   className="comment-delete-logo" onClick={(e) => revealInput(e)}/>
-
-  
-
-                
                 {/* <img className = "comment-delete-logo"src = "https://i.imgur.com/VCh6kEv.png"/> */}
-              </div>
-            </div>
           </div>
 
         {isInputRevealed && (
@@ -155,6 +140,7 @@ const HomePost = (props) => {
           )}
         {displayComments && <div className="comment">{postComments}</div>}
       </div>
+      </Card>
        
     </div>
   );
