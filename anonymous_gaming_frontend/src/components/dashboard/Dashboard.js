@@ -2,7 +2,7 @@ import Context from "../../context/context";
 import { Link } from "react-router-dom";
 // import UserInfo from "../UserInfo";
 import UserPostDisplay from "../posts/UserPostDisplay";
-// import Navbar from "../Navbar";
+import Navbar from "../navbar/Navbar";
 // import dashboard from "./dashboard.css";
 // import Footer from "../Footer"
 
@@ -114,6 +114,8 @@ const Dashboard = (props) => {
 
   return (
     <div>
+            <Navbar isAuthenticated = {props.isAuthenticated} setIsAuthenticated = {props.setIsAuthenticated} /> 
+            
 
     <div className="position-absolute start-0" >
       <Link to="/home"> Home</Link>
@@ -121,7 +123,6 @@ const Dashboard = (props) => {
 
 
 
-        <div> {context.userInfo.username} </div>    
         <div >
           <input  label="Type here"  onChange={(e) => onChange(e)} value={context.post} />
           <button  onClick={createPost} variant="contained">POST</button>

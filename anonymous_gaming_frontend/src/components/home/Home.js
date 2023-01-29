@@ -6,6 +6,7 @@ import Context from "../../context/context";
 //import UserInfo from "../UserInfo";
 import HomePost from "../posts/HomePosts"
 import Card from '@mui/material/Card';
+import Navbar from "../navbar/Navbar";
 
 
 const Home = (props) => {
@@ -123,6 +124,8 @@ const Home = (props) => {
 
   return (
     <div>
+       <Navbar isAuthenticated = {props.isAuthenticated} setIsAuthenticated = {props.setIsAuthenticated} /> 
+
       <div className="position-absolute start-0" >
         <Link to="/dashboard"> Dashboard </Link>
       </div>
