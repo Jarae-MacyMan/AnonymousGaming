@@ -15,8 +15,13 @@ router.post("/", authCheck, dashboardController.createPost)
 //delete a post
 router.delete("/posts/:id", dashboardController.deletePost)
 
-//Update profile info
-router.put("/", authCheck, dashboardController.editInfo)
+// //Update profile info
+// router.put("/", authCheck, dashboardController.editInfo)
+
+//edit profile
+router.put("/edit", authCheck, dashboardController.editProfile)
+//edit profile pic
+//router.put("/editpic", authCheck, homeController.editProfilePic)
 
 
 

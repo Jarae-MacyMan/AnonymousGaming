@@ -20,6 +20,8 @@ class authContoller {
                 "INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING *",
                 [ email, username, hashedPassword])
 
+            //const default = await pool.query("SET games_won = coalesce(games_won, 0) + 1")
+
             const token = generateToken(newUser.rows[0].user_id);
 
             return res.status(201).send({token});

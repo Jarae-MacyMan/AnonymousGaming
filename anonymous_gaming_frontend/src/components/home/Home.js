@@ -7,6 +7,8 @@ import Context from "../../context/context";
 import HomePost from "../posts/HomePosts"
 import Card from '@mui/material/Card';
 import Navbar from "../navbar/Navbar";
+import Userstats from "../userstats/UserStats";
+
 
 
 const Home = (props) => {
@@ -125,17 +127,16 @@ const Home = (props) => {
   return (
     <div>
        <Navbar isAuthenticated = {props.isAuthenticated} setIsAuthenticated = {props.setIsAuthenticated} /> 
+      
 
-      <div className="position-absolute start-0" >
-        <Link to="/dashboard"> Dashboard </Link>
-      </div>
-
-
+      
       <div>{userPosts}</div>
       <div>  
         <input onChange={(e) => onChange(e)} value={context.post}/>
         <button onClick={createPost} >Post</button>
       </div>
+
+
       
     </div>
   )

@@ -7,7 +7,7 @@ class homeContoller {
 
     //get all users
     static async getUsers(req, res) {
-        console.log(req.user)
+        //console.log(req.user)
         try {
             const userData = await pool.query(
               "SELECT username, title, profile_pic FROM users WHERE user_id = $1",
@@ -27,6 +27,7 @@ class homeContoller {
             res.status(500).json("server error");
           }
     }
+    
 
     //get all posts
     static async getHome(req, res) {

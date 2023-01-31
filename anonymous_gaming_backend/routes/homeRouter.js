@@ -15,6 +15,8 @@ router.get("/posts", authCheck, homeController.getHome)
 router.post("/post", authCheck, homeController.createHomePosts)
 
 
+
+
 //Get all comments for a post
 router.get("/comments", authCheck, homeController.getHomeComments)
 router.get("/post", authCheck, homeController.getHomeComment)

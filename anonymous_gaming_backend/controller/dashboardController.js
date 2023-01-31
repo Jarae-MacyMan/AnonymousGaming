@@ -44,6 +44,22 @@ class dashboardContoller {
         }
     }
 
+    //edit profile
+    static async editProfile (req, res){
+      try {
+        //console.log(req.body)
+        const { username, title } = req.body;
+        const updateStats = await pool.query(
+          "UPDATE users SET username = $1,  title = $2 WHERE user_id = $3 RETURNING *",
+          [username, title, req.user]
+        );
+        res.json(updateStats.rows[0]);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json("server error");
+      }
+    }
+
     //Post a question
     static async createPost (req, res)  {
         try {

@@ -26,17 +26,16 @@ function () {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(req.user);
-              _context.prev = 1;
-              _context.next = 4;
+              _context.prev = 0;
+              _context.next = 3;
               return regeneratorRuntime.awrap(pool.query("SELECT username, title, profile_pic FROM users WHERE user_id = $1", [req.user]));
 
-            case 4:
+            case 3:
               userData = _context.sent;
-              _context.next = 7;
+              _context.next = 6;
               return regeneratorRuntime.awrap(pool.query("SELECT * FROM posts JOIN users ON posts.user_id = users.user_id WHERE users.user_id = $1", [req.user]));
 
-            case 7:
+            case 6:
               userPosts = _context.sent;
               userInfo = {
                 userData: userData.rows[0],
@@ -45,21 +44,21 @@ function () {
               res.json({
                 userInfo: userInfo
               });
-              _context.next = 16;
+              _context.next = 15;
               break;
 
-            case 12:
-              _context.prev = 12;
-              _context.t0 = _context["catch"](1);
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](0);
               console.error(_context.t0);
               res.status(500).json("server error");
 
-            case 16:
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[1, 12]]);
+      }, null, null, [[0, 11]]);
     } //get all posts
 
   }, {

@@ -64,7 +64,7 @@ const UserPostFormat = (props) => {
       );
       const parseRes = await response.json();
       context.setComments(parseRes);
-      console.log(context.comments);
+      //console.log(context.comments);
     } catch (error) {
       console.error(error);
     }
@@ -104,7 +104,7 @@ const UserPostFormat = (props) => {
       setDisplayComments(false);
     }
   };
-  console.log(context.comments)
+  //console.log(context.comments)
 
   const comments = context.comments.filter((element) => {
     return element.posts_id === id;

@@ -4,7 +4,7 @@ import {useContext, useState} from "react"
 
 const Comment = (props) => {    
     const { content, id, username, date } = props;
-    console.log(username)
+    //console.log(username)
 
     const context = useContext(Context)
 

@@ -53,6 +53,7 @@ function () {
 
             case 10:
               newUser = _context.sent;
+              //const default = await pool.query("SET games_won = coalesce(games_won, 0) + 1")
               token = generateToken(newUser.rows[0].user_id);
               return _context.abrupt("return", res.status(201).send({
                 token: token

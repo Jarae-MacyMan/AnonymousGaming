@@ -15,7 +15,11 @@ router.get("/posts/:id", dashboardController.getComments); //create a post
 
 router.post("/", authCheck, dashboardController.createPost); //delete a post
 
-router["delete"]("/posts/:id", dashboardController.deletePost); //Update profile info
+router["delete"]("/posts/:id", dashboardController.deletePost); // //Update profile info
+// router.put("/", authCheck, dashboardController.editInfo)
+//edit profile
 
-router.put("/", authCheck, dashboardController.editInfo);
+router.put("/edit", authCheck, dashboardController.editProfile); //edit profile pic
+//router.put("/editpic", authCheck, homeController.editProfilePic)
+
 module.exports = router;

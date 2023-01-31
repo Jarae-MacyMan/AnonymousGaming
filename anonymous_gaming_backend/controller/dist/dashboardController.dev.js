@@ -96,61 +96,60 @@ function () {
           }
         }
       }, null, null, [[0, 8]]);
+    } //edit profile
+
+  }, {
+    key: "editProfile",
+    value: function editProfile(req, res) {
+      var _req$body, username, title, updateStats;
+
+      return regeneratorRuntime.async(function editProfile$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              //console.log(req.body)
+              _req$body = req.body, username = _req$body.username, title = _req$body.title;
+              _context3.next = 4;
+              return regeneratorRuntime.awrap(pool.query("UPDATE users SET username = $1,  title = $2 WHERE user_id = $3 RETURNING *", [username, title, req.user]));
+
+            case 4:
+              updateStats = _context3.sent;
+              res.json(updateStats.rows[0]);
+              _context3.next = 12;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](0);
+              console.error(_context3.t0);
+              res.status(500).json("server error");
+
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, null, null, [[0, 8]]);
     } //Post a question
 
   }, {
     key: "createPost",
     value: function createPost(req, res) {
       var post, createPost;
-      return regeneratorRuntime.async(function createPost$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              console.log(req.body);
-              post = req.body.post;
-              _context3.next = 5;
-              return regeneratorRuntime.awrap(pool.query("INSERT INTO posts (content, user_id) VALUES ($1, $2) RETURNING *", [post, req.user]));
-
-            case 5:
-              createPost = _context3.sent;
-              res.json(createPost.rows[0]);
-              _context3.next = 13;
-              break;
-
-            case 9:
-              _context3.prev = 9;
-              _context3.t0 = _context3["catch"](0);
-              console.error(_context3.t0);
-              res.status(500).json("server error");
-
-            case 13:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, null, null, [[0, 9]]);
-    } //Delete a post
-
-  }, {
-    key: "deletePost",
-    value: function deletePost(req, res) {
-      var id, deletedPost;
-      return regeneratorRuntime.async(function deletePost$(_context4) {
+      return regeneratorRuntime.async(function createPost$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
-              //const posts_id = req.params.id
-              id = req.params.id;
-              console.log(id); //pool.query("DELETE FROM posts WHERE posts_id = $1", [id])
-
+              console.log(req.body);
+              post = req.body.post;
               _context4.next = 5;
-              return regeneratorRuntime.awrap(pool.query("DELETE FROM posts WHERE posts_id = $1 RETURNING *", [id]));
+              return regeneratorRuntime.awrap(pool.query("INSERT INTO posts (content, user_id) VALUES ($1, $2) RETURNING *", [post, req.user]));
 
             case 5:
-              deletedPost = _context4.sent;
-              res.json(deletedPost.rows);
+              createPost = _context4.sent;
+              res.json(createPost.rows[0]);
               _context4.next = 13;
               break;
 
@@ -166,26 +165,27 @@ function () {
           }
         }
       }, null, null, [[0, 9]]);
-    } //Update profile info
+    } //Delete a post
 
   }, {
-    key: "editInfo",
-    value: function editInfo(req, res) {
-      var _req$body, username, title, profile_pic, updateInfo;
-
-      return regeneratorRuntime.async(function editInfo$(_context5) {
+    key: "deletePost",
+    value: function deletePost(req, res) {
+      var id, deletedPost;
+      return regeneratorRuntime.async(function deletePost$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.prev = 0;
-              console.log(req.body);
-              _req$body = req.body, username = _req$body.username, title = _req$body.title, profile_pic = _req$body.profile_pic;
+              //const posts_id = req.params.id
+              id = req.params.id;
+              console.log(id); //pool.query("DELETE FROM posts WHERE posts_id = $1", [id])
+
               _context5.next = 5;
-              return regeneratorRuntime.awrap(pool.query("UPDATE users SET username = $1,  title = $2,  profile_pic = $3 WHERE user_id = $4 RETURNING *", [username, title, profile_pic, req.user]));
+              return regeneratorRuntime.awrap(pool.query("DELETE FROM posts WHERE posts_id = $1 RETURNING *", [id]));
 
             case 5:
-              updateInfo = _context5.sent;
-              res.json(updateInfo.rows[0]);
+              deletedPost = _context5.sent;
+              res.json(deletedPost.rows);
               _context5.next = 13;
               break;
 
@@ -198,6 +198,41 @@ function () {
             case 13:
             case "end":
               return _context5.stop();
+          }
+        }
+      }, null, null, [[0, 9]]);
+    } //Update profile info
+
+  }, {
+    key: "editInfo",
+    value: function editInfo(req, res) {
+      var _req$body2, username, title, profile_pic, updateInfo;
+
+      return regeneratorRuntime.async(function editInfo$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.prev = 0;
+              console.log(req.body);
+              _req$body2 = req.body, username = _req$body2.username, title = _req$body2.title, profile_pic = _req$body2.profile_pic;
+              _context6.next = 5;
+              return regeneratorRuntime.awrap(pool.query("UPDATE users SET username = $1,  title = $2,  profile_pic = $3 WHERE user_id = $4 RETURNING *", [username, title, profile_pic, req.user]));
+
+            case 5:
+              updateInfo = _context6.sent;
+              res.json(updateInfo.rows[0]);
+              _context6.next = 13;
+              break;
+
+            case 9:
+              _context6.prev = 9;
+              _context6.t0 = _context6["catch"](0);
+              console.error(_context6.t0);
+              res.status(500).json("server error");
+
+            case 13:
+            case "end":
+              return _context6.stop();
           }
         }
       }, null, null, [[0, 9]]);
