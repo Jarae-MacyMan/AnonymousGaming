@@ -78,7 +78,7 @@ const Userstats = (props) => {
     //     <h2>{last_name}</h2>
     //     <h2>{bio}</h2>
     // </div>
-    <Card className="mx-auto" sx={{maxWidth: 345, pt:5, pb:6}}>
+    <Card className="mx-auto"  position="fixed" sx={{maxWidth: 345, pt:5, pb:6}}>
       
         <div className=" d-flex flex-column align-items-center text-center">
            < AccountCircleIcon sx={{ fontSize: 150 }} />

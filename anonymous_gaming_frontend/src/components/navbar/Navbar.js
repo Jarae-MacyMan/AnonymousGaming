@@ -1,7 +1,9 @@
-import {Link} from "react-router-dom"
 import './Navbar.css';
 import Context from "../../context/context";
 import { useContext, useState, useEffect } from "react";
+import queryString from 'query-string'
+import { useLocation, Link} from "react-router-dom"
+
 
 
 
@@ -25,8 +27,19 @@ import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 
+// const {roomCode} = queryString.parse(search)
+// console.log(roomCode)
+
 const Navbar = (props) => {
     const context = useContext(Context);
+    // const {search} = useLocation()
+    // const {roomCode} = queryString.parse(search)
+
+    const pathname = window.location.pathname 
+
+    //console.log(pathname)
+
+
 
     const getUserInfo = async () => {
         try {

@@ -48,6 +48,7 @@ function App() {
           <Route
             exact
             path="/login"
+            
             element={
               !isAuthenticated ? (
                 <Login setAuth={setAuth} />
@@ -70,6 +71,7 @@ function App() {
           <Route
             exact
             path="/home"
+            component={Home}
             element={
               isAuthenticated ? (
                 <Home setAuth={setAuth} />
@@ -81,6 +83,7 @@ function App() {
           <Route
             exact
             path="/dashboard"
+            component={Dashboard}
             element={
               isAuthenticated ? (
                 <Dashboard setAuth={setAuth} />

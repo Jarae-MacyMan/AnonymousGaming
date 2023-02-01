@@ -132,15 +132,16 @@ const HomePost = (props) => {
           </div>
 
         {isInputRevealed && (
-            <div className = "d-flex align-items-end">
-            <TextField sx={{ml:40, width:700, bgcolor:'#ffffff'}} onChange={(e) => onChange(e)} value={input} id="filled-basic" label="Filled" variant="filled" />
+            <div className = "d-flex align-items-en pt-2 mx-2">
+              <TextField sx={{ width:700, bgcolor:'#ffffff'}} onChange={(e) => onChange(e)} value={input} id="filled-basic" label="comment" variant="outlined" size="small" />
 
-            <Button  onClick={postComment} variant="contained" sx={{ml:2, pt:2, pb:2}}>comment</Button>          
+              <Button  onClick={postComment} variant="contained" sx={{ml:2, pl:3, pr:3}}>comment</Button>          
             </div>
           )}
-        {displayComments && <div className="comment">{postComments}</div>}
       </div>
       </Card>
+      {displayComments && <div className="comment">{postComments}</div>}
+
        
     </div>
   );

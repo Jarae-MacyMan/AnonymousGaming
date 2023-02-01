@@ -10,9 +10,12 @@ exports.up = function (knex) {
     table.string("email").unique().notNullable();
     table.string("username", 30).notNullable();
     table.string("password").notNullable();
-    table.string("profile_pic");
-    table.integer("games_won");
-    table.integer("games_lost");
+    table.string("profile_pic"); //profile_pic_id
+
+    table.integer("games_won"); //.defaultTo('0')
+
+    table.integer("games_lost"); //.defaultTo('0')
+
     table.string("title");
   });
 };
