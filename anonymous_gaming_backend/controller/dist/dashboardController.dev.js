@@ -28,7 +28,7 @@ function () {
 
               _context.prev = 1;
               _context.next = 4;
-              return regeneratorRuntime.awrap(pool.query("SELECT username, title, profile_pic FROM users WHERE user_id = $1", [req.user]));
+              return regeneratorRuntime.awrap(pool.query("SELECT username, title, profile_pic_id FROM users WHERE user_id = $1", [req.user]));
 
             case 4:
               userData = _context.sent;
@@ -206,7 +206,7 @@ function () {
   }, {
     key: "editInfo",
     value: function editInfo(req, res) {
-      var _req$body2, username, title, profile_pic, updateInfo;
+      var _req$body2, username, title, profile_pic_id, updateInfo;
 
       return regeneratorRuntime.async(function editInfo$(_context6) {
         while (1) {
@@ -214,9 +214,9 @@ function () {
             case 0:
               _context6.prev = 0;
               console.log(req.body);
-              _req$body2 = req.body, username = _req$body2.username, title = _req$body2.title, profile_pic = _req$body2.profile_pic;
+              _req$body2 = req.body, username = _req$body2.username, title = _req$body2.title, profile_pic_id = _req$body2.profile_pic_id;
               _context6.next = 5;
-              return regeneratorRuntime.awrap(pool.query("UPDATE users SET username = $1,  title = $2,  profile_pic = $3 WHERE user_id = $4 RETURNING *", [username, title, profile_pic, req.user]));
+              return regeneratorRuntime.awrap(pool.query("UPDATE users SET username = $1,  title = $2,  profile_pic_id = $3 WHERE user_id = $4 RETURNING *", [username, title, profile_pic_id, req.user]));
 
             case 5:
               updateInfo = _context6.sent;

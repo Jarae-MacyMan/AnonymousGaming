@@ -9,7 +9,7 @@ class dashboardContoller {
         console.log(req.user) //comes from auth header
         try {
             const userData = await pool.query(
-              "SELECT username, title, profile_pic FROM users WHERE user_id = $1",
+              "SELECT username, title, profile_pic_id FROM users WHERE user_id = $1",
               [req.user]
             );
             const userPosts = await pool.query(
@@ -95,10 +95,10 @@ class dashboardContoller {
     static async editInfo(req, res) {
     try {
       console.log(req.body)
-      const { username, title, profile_pic} = req.body;
+      const { username, title, profile_pic_id} = req.body;
       const updateInfo = await pool.query(
-        "UPDATE users SET username = $1,  title = $2,  profile_pic = $3 WHERE user_id = $4 RETURNING *",
-        [username, title, profile_pic, req.user]
+        "UPDATE users SET username = $1,  title = $2,  profile_pic_id = $3 WHERE user_id = $4 RETURNING *",
+        [username, title, profile_pic_id, req.user]
       );
       res.json(updateInfo.rows[0]);
     } catch (error) {

@@ -10,7 +10,7 @@ class homeContoller {
         //console.log(req.user)
         try {
             const userData = await pool.query(
-              "SELECT username, title, profile_pic FROM users WHERE user_id = $1",
+              "SELECT username, title, profile_pic_id FROM users WHERE user_id = $1",
               [req.user]
             );
             const userPosts = await pool.query(

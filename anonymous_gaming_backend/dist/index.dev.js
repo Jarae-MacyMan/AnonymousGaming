@@ -17,6 +17,8 @@ var authRouter = require('./routes/authRouter');
 
 var dashboardRouter = require('./routes/dashboardRouter');
 
+var pfpRouter = require('./routes/pfpRouter');
+
 app.use(cors());
 app.use(express.json());
 var PORT = 3001; //app.use(authCheck)
@@ -26,6 +28,7 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/home', homeRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/pfp', pfpRouter);
 app.listen(PORT, function () {
   console.log("server is running on PORT ".concat(PORT));
 });

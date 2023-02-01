@@ -28,7 +28,7 @@ function () {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return regeneratorRuntime.awrap(pool.query("SELECT username, title, profile_pic FROM users WHERE user_id = $1", [req.user]));
+              return regeneratorRuntime.awrap(pool.query("SELECT username, title, profile_pic_id FROM users WHERE user_id = $1", [req.user]));
 
             case 3:
               userData = _context.sent;
