@@ -1,4 +1,6 @@
 const usersModel = require("../models/usersModel");
+const pool = require('../dbconfig')
+
 
 class usersContoller {
     static async getUsers(req, res) {
@@ -7,9 +9,33 @@ class usersContoller {
     }
   
     static async getSingleUser(req, res) {
-      const user_id = req.params.id;
-      const user = await usersModel.getSingleUserFromDB(user_id);
-      res.status(200).send(user);
+      // const user_id = req.params.id;
+      // const user = await usersModel.getSingleUserFromDB(user_id);
+      // res.status(200).send(user);
+      try{
+        const username = req.params.username;
+        const userData = await pool.query(
+          "SELECT username, user_id, title, profile_pic_id FROM users WHERE username = $1",
+          [username]
+        );
+        let userID = userData.rows[0].user_id
+        const userPosts = await pool.query(
+          "SELECT * FROM posts JOIN users ON posts.user_id = users.user_id WHERE users.user_id = $1",
+          [userID]
+        );
+
+       
+
+        const userInfo = {
+          userData: userData.rows[0],
+          userPosts: userPosts.rows
+        }
+
+        res.status(200).json({ userInfo });
+      } catch (error){
+        console.error(error);
+        res.status(500).json("server error");
+      }
     }
   
     static async updateUser(req, res) {

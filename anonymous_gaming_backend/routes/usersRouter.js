@@ -4,7 +4,8 @@ const router = express.Router()
 
 router.get('/', userController.getUsers)
 
-router.get('/:id', userController.getSingleUser)
+//get user information
+router.get('/:username', userController.getSingleUser)
 
 router.post('/', userController.createUser)
 
@@ -16,5 +17,7 @@ router.put('/:id', userController.updateUser)
 // router.all('*', (req, res) => {
 //     res.send("Does not exist")
 // })
+
+
 
 module.exports = router

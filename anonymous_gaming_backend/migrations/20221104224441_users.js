@@ -6,7 +6,7 @@
     return knex.schema.createTable("users", function (table) {
       table.increments("user_id").primary();
       table.string("email").unique().notNullable();
-      table.string("username", 30).notNullable();
+      table.string("username", 30).notNullable(); //unique
       table.string("password").notNullable();
       table.integer("profile_pic_id"); 
       table.integer("games_won").defaultTo('0');

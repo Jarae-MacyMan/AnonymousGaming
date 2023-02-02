@@ -28,7 +28,8 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/home', homeRouter);
 app.use('/dashboard', dashboardRouter);
-app.use('/pfp', pfpRouter);
+app.use('/pfp', pfpRouter); //"file": 
+
 app.listen(PORT, function () {
   console.log("server is running on PORT ".concat(PORT));
 });
