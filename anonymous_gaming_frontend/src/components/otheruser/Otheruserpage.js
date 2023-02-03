@@ -9,6 +9,11 @@ import HomePost from "../posts/HomePosts"
 import Card from '@mui/material/Card';
 import Navbar from "../navbar/Navbar";
 import Userstats from "../userstats/UserStats";
+import Otheruserstats from "../userstats/OtherUserStats";
+import OtherUserPostDisplay from "../posts/OtherUserPostDisplay";
+//import OtherUserPostsFormat from "../posts/OtherUserPostsFormat.js";
+
+
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -25,13 +30,15 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
+import Grid from '@mui/material/Grid';
+
 
 const drawerWidth = 240;
 
 
 const Otheruserpage = (props) => {
     const context = useContext(Context);
-    const {username} = props 
+    //const {username} = props 
     //const {name} = useParams()
 
    
@@ -39,10 +46,14 @@ const Otheruserpage = (props) => {
     //console.log(pathname)
 
     const getUserInfo = async () => {
-    
+        //e.preventDefault();
         try {
           const response = await fetch(`http://localhost:3001/users${pathname}`, {
             method: "GET",
+            headers: {
+                Authorization: `Bearer: ${localStorage.token}`,
+                "Content-Type": "application/json",
+              },
             
           });
     
@@ -61,117 +72,36 @@ const Otheruserpage = (props) => {
             () => {
               getUserInfo();
             },
-            [context.otherUserPost],
+            [context.otherUserPosts],
             [context.otherUserInfo]
           );
-          console.log(context.otherUserPosts)
-           console.log(context.otherUserInfo)
+        //    console.log(context.otherUserPosts)
+        //    console.log(context.otherUserInfo)
+
 
 
     return (
         
         <div> 
-            <Box sx={{ display: 'flex' }}>
-            
-            <AppBar
-              position="fixed"
-              sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-            >
-                
-              <Toolbar>
-                <Typography variant="h6" noWrap component="div">
-                  AnonymousGaming
-                </Typography>
-              </Toolbar>
-              
-            </AppBar>
-    
-            
-    
-            <Drawer
-              sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
-                  width: drawerWidth,
-                  boxSizing: 'border-box',
-                },
-              }}
-              
-              variant="permanent"
-              anchor="left"
-              
-            >
-            <div class="py-3">
-            <Typography  >
-                 
-               Welcome {context.userInfo.username}
-                </Typography>
-            </div>
-           
-    
-           
-            {/* <Toolbar>
-            <Toolbar /> */}
-    
-              <Divider />
-              <List>
-                
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <Link to="/dashboard"  style={{ textDecoration: 'none' }}> Dashboard </Link>
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <HomeIcon/>
-                  </ListItemIcon>
-                  <Link to="/home" style={{ textDecoration: 'none' }} > Home</Link>
-                </ListItemButton>
-              </ListItem>
-            </List>
-              <Divider />
-    
-                Private Messages
-    
-              <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                  <ListItem key={text} disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Drawer>
-            <Box
-              component="main"
-              sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-            >
-              <Toolbar />
-              
-            </Box>
-          </Box>
+            <Navbar isAuthenticated = {props.isAuthenticated} setIsAuthenticated = {props.setIsAuthenticated} /> 
 
 
 
 
 
+            <Grid container columns={2} >
+                <Grid sx={{ mt:2, ml:40, width: 500}}>
+                    <OtherUserPostDisplay />
+                </Grid>
+
+                <Grid sx={{ mt:6, ml:2, width: 600}}>    
+                    <Otheruserstats  otherUserInfo={context.otherUserInfo} />
+                </Grid>
+            </Grid>
 
 
 
 
-
-
-
-           <div> {context.otherUserInfo.username} </div> 
            {/* <div> {context.otherUserPosts} </div> */}
            
         </div>

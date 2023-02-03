@@ -15,7 +15,7 @@ class usersContoller {
       try{
         const username = req.params.username;
         const userData = await pool.query(
-          "SELECT username, user_id, title, profile_pic_id FROM users WHERE username = $1",
+          "SELECT username, user_id, title, profile_pic_id, games_won, games_lost FROM users WHERE username = $1",
           [username]
         );
         let userID = userData.rows[0].user_id
@@ -31,7 +31,7 @@ class usersContoller {
           userPosts: userPosts.rows
         }
 
-        res.status(200).json({ userInfo });
+        res.json({ userInfo });
       } catch (error){
         console.error(error);
         res.status(500).json("server error");

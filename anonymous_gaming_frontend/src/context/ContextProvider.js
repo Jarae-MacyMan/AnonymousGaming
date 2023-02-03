@@ -16,6 +16,8 @@ const ContextProvider = ({ children }) => {
 
   const [allPosts, setAllPosts] = useState([]);
 
+  //const [otherUserPosts, setUserPosts] = useState([]);
+
   const [comments, setComments] = useState([]);
 
   const [post, setPost] = useState(""); //constrolled state
@@ -30,7 +32,9 @@ const ContextProvider = ({ children }) => {
 
   const [otherUserInfo, setOtherUserInfo] = useState("")
 
-  const [otherUserPosts, setOtherUserPosts] = useState("")
+  const [otherUserPosts, setOtherUserPosts] = useState([])
+
+  //const [newUserPost, setNewUserPost] = useState("")
 
 
   const state = {

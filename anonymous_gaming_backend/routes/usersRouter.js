@@ -1,11 +1,14 @@
 const express = require('express')
-const userController = require('../controller/userController')
 const router = express.Router()
+
+const userController = require('../controller/userController')
+const authCheck = require('../middleware/checkAuth');
+
 
 router.get('/', userController.getUsers)
 
 //get user information
-router.get('/:username', userController.getSingleUser)
+router.get('/:username', authCheck, userController.getSingleUser)
 
 router.post('/', userController.createUser)
 

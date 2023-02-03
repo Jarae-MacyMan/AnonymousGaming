@@ -43,7 +43,7 @@ const Dashboard = (props) => {
     }
   };
   
-  //console.log(context.userInfo)
+  //console.log(context.userPosts)
 
 
   const createPost = async (e) => {
@@ -125,6 +125,7 @@ const Dashboard = (props) => {
           <input  label="Type here"  onChange={(e) => onChange(e)} value={context.post} />
           <button  onClick={createPost} variant="contained">POST</button>
         </div>
+        
     <Grid container columns={2} >
       <Grid sx={{ mt:2, ml:40, width: 500}}>
         <UserPostDisplay/>

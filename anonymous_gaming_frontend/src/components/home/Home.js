@@ -31,7 +31,7 @@ const Home = (props) => {
       });
 
       const parseRes = await response.json();
-      console.log(parseRes)
+      //console.log(parseRes)
       context.setUserInfo(parseRes.userInfo.userData);
       context.setUserPosts(parseRes.userInfo.userPosts);
     } catch (error) {
@@ -53,12 +53,12 @@ const Home = (props) => {
       const parseRes = await response.json();
       context.setAllPosts(parseRes);
       
-      console.log(localStorage.token)
+      //console.log(localStorage.token)
     } catch (error) {
       console.error(error);
     }
   };
-  //console.log(context.allPosts)
+  //.log(context.allPosts)
 
   const userPosts = context.allPosts.map((element) => {
     return <HomePost id={element.posts_id} key={element.id} content={element.content} username = {element.username}  />;
@@ -118,7 +118,7 @@ const Home = (props) => {
       );
       const parseRes = await response.json();
       context.setComments(parseRes);
-      console.log(parseRes)
+      //console.log(parseRes)
     } catch (error) {
       console.error(error);
     }
@@ -126,7 +126,7 @@ const Home = (props) => {
 
   useEffect(() => {
     getComments();
-    console.log(context.comments)
+    //console.log(context.comments)
   },[])
 
   return (

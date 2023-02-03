@@ -50,7 +50,7 @@ function () {
               _context2.prev = 0;
               username = req.params.username;
               _context2.next = 4;
-              return regeneratorRuntime.awrap(pool.query("SELECT username, user_id, title, profile_pic_id FROM users WHERE username = $1", [username]));
+              return regeneratorRuntime.awrap(pool.query("SELECT username, user_id, title, profile_pic_id, games_won, games_lost FROM users WHERE username = $1", [username]));
 
             case 4:
               userData = _context2.sent;
@@ -64,7 +64,7 @@ function () {
                 userData: userData.rows[0],
                 userPosts: userPosts.rows
               };
-              res.status(200).json({
+              res.json({
                 userInfo: userInfo
               });
               _context2.next = 17;

@@ -12,6 +12,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
+import Divider from '@mui/material/Divider';
 
 
 
@@ -30,7 +31,7 @@ const style = {
 
 const Userstats = (props) => {
   const context = useContext(Context);
-  let { username, title } = props.userInfo;
+  let { username, title, games_won, games_lost  } = props.userInfo;
 
   const onChange = (e) => {
     context.setInputs({ ...context.inputs, [e.target.name]: e.target.value });
@@ -85,6 +86,9 @@ const Userstats = (props) => {
           <div className="mt-3">
             <h4>{username}</h4>
             <h6>{title}</h6>
+            <Divider />
+            <p>Games Won {games_won}</p>
+            <p>Games Lost {games_lost}</p>
 
             {/* <p className="text-secondary mb-1">{`${
               first_name ? first_name : ""
