@@ -28,6 +28,11 @@ const ContextProvider = ({ children }) => {
 
   const [profile_pic, setProfile_pic] = useState("")
 
+  const [otherUserInfo, setOtherUserInfo] = useState("")
+
+  const [otherUserPosts, setOtherUserPosts] = useState("")
+
+
   const state = {
     inputs,
     setInputs,
@@ -48,7 +53,11 @@ const ContextProvider = ({ children }) => {
     comment,
     setComment,
     profile_pic,
-    setProfile_pic
+    setProfile_pic,
+    otherUserInfo,
+    setOtherUserInfo,
+    otherUserPosts,
+    setOtherUserPosts
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;

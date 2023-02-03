@@ -2,14 +2,20 @@
 import Context from "../../context/context";
 import { useContext, useEffect, useState } from "react";
 import Comments from "../comments/Comments.js";
+import { Link } from "react-router-dom";
+
 
 import * as React from 'react';
 
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Card from '@mui/material/Card';
 
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Grid from '@mui/material/Grid';
 
 
 
@@ -101,6 +107,11 @@ const HomePost = (props) => {
 
   const open = Boolean(anchorEl);
 
+  // const userPage = () => {
+  //   console.log(username)
+  //     <Link to="/otheruserpage" style={{ textDecoration: 'none' }} props={username}> </Link>
+  // }
+
   
 
   return (
@@ -110,15 +121,27 @@ const HomePost = (props) => {
       <div>
         
 
-                <div>
-                    <span> {username}</span>
-                </div>
-                {/* <span className="postDate">
-                  {DateTime.fromISO(date).toRelative()}
-                </span> */}
-                <div>
-                    <span>{content}</span>
-                </div>
+      <Grid container spacing={2} className="p-4">
+
+      <Grid  xs={1}>
+        <AccountCircleIcon/>
+      </Grid>
+
+      <Grid  xs={3}  >
+          {/* <Box  className="pe-9 ps-2 text-start" >{username}</Box> */}
+          <Link to={`/${username}`} style={{ textDecoration: 'none' }} class="text-reset" > {username}</Link>
+
+      </Grid>
+      <Grid xs={8}>
+          <Box className="ms-9 text-end"> (time) </Box>
+      </Grid>
+
+      <Grid xs={9}>
+        <Box className="ps-4 ms-5" >{content}</Box>
+      </Grid>
+
+
+      </Grid>
  
             <div >
                 <button onClick={(e) => revealComment(e)}>see comments</button>

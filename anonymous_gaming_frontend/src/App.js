@@ -12,7 +12,7 @@ import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Dashboard from "./components/dashboard/Dashboard";
-
+import Otheruserpage from "./components/otheruser/Otheruserpage"
 
 
 
@@ -92,6 +92,18 @@ function App() {
               )
             }
           />
+
+        <Route
+            exact
+            path="/:username"
+            element={
+              isAuthenticated ? (
+                <Otheruserpage setAuth={setAuth} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          /> 
            </Routes>
        </Router>
     </div>

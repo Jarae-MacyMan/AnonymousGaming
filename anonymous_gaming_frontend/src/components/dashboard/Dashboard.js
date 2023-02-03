@@ -24,7 +24,8 @@ import Grid from '@mui/material/Grid';
 const Dashboard = (props) => {
   const context = useContext(Context);
 
-  const getUserInfo = async () => {
+  const getUserInfo = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch("http://localhost:3001/dashboard", {
         method: "GET",
@@ -34,7 +35,7 @@ const Dashboard = (props) => {
       });
 
       const parseRes = await response.json();
-      //console.log(parseRes)
+      console.log(parseRes)
       context.setUserInfo(parseRes.userInfo.userData);
       context.setUserPosts(parseRes.userInfo.userPosts);
     } catch (error) {
@@ -60,6 +61,7 @@ const Dashboard = (props) => {
 
       const parseRes = await response.json();
       context.setNewPost(parseRes)
+      console.log(parseRes)
     } catch (error) {
       console.error(error);
     }

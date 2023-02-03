@@ -39,7 +39,7 @@ const Home = (props) => {
     }
   };
 
-  console.log(context.userInfo)
+  //console.log(context.userInfo)
   
   const getAllPosts = async () => {
     try {
