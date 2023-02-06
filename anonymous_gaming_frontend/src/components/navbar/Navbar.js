@@ -24,11 +24,24 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
+import PropTypes from 'prop-types';
+import CircleIcon from '@mui/icons-material/Circle';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import Tabs from '@mui/material/Tabs';
+import { red } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
+
+
 
 const drawerWidth = 240;
 
 // const {roomCode} = queryString.parse(search)
 // console.log(roomCode)
+
+
 
 const Navbar = (props) => {
     const context = useContext(Context);
@@ -39,6 +52,11 @@ const Navbar = (props) => {
 
     //console.log(pathname)
 
+    //const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+      context.setValue(newValue);
+    };
 
 
     const getUserInfo = async () => {
@@ -72,10 +90,13 @@ const Navbar = (props) => {
         props.setIsAuthenticated(boolean);
       };
 
-    const setLink = (e) =>{
-        
-    }
+    const friendListBar = context.friendList.map((e) =>{
+        return <Tab icon={<CircleIcon  fontSize="small"/>} iconPosition="start" label= {e.username} value= {e.username} />
 
+    })
+
+    //console.log(context.friendList)
+    //e.connected ? color:green : color:red
     // const logout = (e) => {
     //     e.preventDefault();
     //     localStorage.removeItem("token");
@@ -165,6 +186,24 @@ const Navbar = (props) => {
               </ListItem>
             ))}
           </List>
+
+          <Divider />
+
+          Add Friends
+
+          <TabContext  value={context.value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} orientation="vertical" aria-label="lab API tabs example">
+            {friendListBar}
+          </TabList>
+
+        </Box>
+       
+      </TabContext>
+
+
+
+
         </Drawer>
         <Box
           component="main"

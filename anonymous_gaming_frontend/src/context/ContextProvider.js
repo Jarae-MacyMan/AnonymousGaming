@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Context from "./context";
+import * as React from 'react';
+
 
 const ContextProvider = ({ children }) => {
   const [inputs, setInputs] = useState({
@@ -34,7 +36,10 @@ const ContextProvider = ({ children }) => {
 
   const [otherUserPosts, setOtherUserPosts] = useState([])
 
-  //const [newUserPost, setNewUserPost] = useState("")
+  const [friendList, setfriendList] = useState([{username: "jar", connected:false}, {username: "uz", connected:true}, {username: "may", connected:true}])
+
+  const [value, setValue] = React.useState("");
+
 
 
   const state = {
@@ -61,7 +66,11 @@ const ContextProvider = ({ children }) => {
     otherUserInfo,
     setOtherUserInfo,
     otherUserPosts,
-    setOtherUserPosts
+    setOtherUserPosts,
+    value,
+    setValue,
+    friendList,
+    setfriendList
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;

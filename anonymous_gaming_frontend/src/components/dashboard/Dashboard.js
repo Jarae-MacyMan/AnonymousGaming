@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 // import UserInfo from "../UserInfo";
 import UserPostDisplay from "../posts/UserPostDisplay";
 import Navbar from "../navbar/Navbar";
+import Chat from "../chat/Chat";
+
+
 // import dashboard from "./dashboard.css";
 import Userstats from "../userstats/UserStats";
 
@@ -13,8 +16,14 @@ import {useEffect} from "react";
 import { useContext, useState } from "react";
 import React from "react";
 import Grid from '@mui/material/Grid';
-
-
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import Tabs from '@mui/material/Tabs';
+//import {Grid, GridItem, Tabs} from "@chakra-ui/react"
 
 
 
@@ -44,6 +53,12 @@ const Dashboard = (props) => {
   };
   
   //console.log(context.userPosts)
+    //console.log(context.value)
+
+
+  // const handleChange = (event, newValue) => {
+  //   context.setValue(newValue);
+  // };
 
 
   const createPost = async (e) => {
@@ -136,6 +151,16 @@ const Dashboard = (props) => {
       </Grid>
     </Grid>
 
+
+
+
+    
+
+      <Chat/>
+
+      <Box>
+          {context.value}
+      </Box>
 
         
 
