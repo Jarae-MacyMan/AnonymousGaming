@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const {Server} = require("socket.io")
+const server = require("http").createServer(app)
+
 //const dbPool = require('./dbconfig')
 const usersRouter  = require('./routes/usersRouter')
 const postsRouter  = require('./routes/postsRouter')
@@ -36,9 +39,24 @@ app.use('/pfp', pfpRouter)
 //"file": 
 
 
+const io = new Server(server, {
+  cors: {
+    origin:"http://localhost:3000",
+    credentials: "true"
+  }
+})
+
+io.on("connection", (socket) => {
+  console.log(socket.id)
+
+  socket.on("disconnect", () => {
+    console.log("user diconnected", socket.id)
+  })
+})
 
 
 
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   console.log(`server is running on PORT ${PORT}`);
 });

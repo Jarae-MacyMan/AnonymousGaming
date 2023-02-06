@@ -4,7 +4,12 @@ var express = require("express");
 
 var app = express();
 
-var cors = require("cors"); //const dbPool = require('./dbconfig')
+var cors = require("cors");
+
+var _require = require("socket.io"),
+    Server = _require.Server;
+
+var server = require("http").createServer(app); //const dbPool = require('./dbconfig')
 
 
 var usersRouter = require('./routes/usersRouter');
@@ -30,6 +35,18 @@ app.use('/home', homeRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/pfp', pfpRouter); //"file": 
 
-app.listen(PORT, function () {
+var io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: "true"
+  }
+});
+io.on("connection", function (socket) {
+  console.log(socket.id);
+  socket.on("disconnect", function () {
+    console.log("user diconnected", socket.id);
+  });
+});
+server.listen(PORT, function () {
   console.log("server is running on PORT ".concat(PORT));
 });

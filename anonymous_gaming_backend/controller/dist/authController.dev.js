@@ -120,7 +120,7 @@ function () {
               _context2.prev = 16;
               _context2.t0 = _context2["catch"](1);
               console.error(_context2.t0);
-              res.status(500).send("Server Error");
+              res.status(500).send("Wrong username or password");
 
             case 20:
             case "end":

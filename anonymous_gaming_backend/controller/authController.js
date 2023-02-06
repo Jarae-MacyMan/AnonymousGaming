@@ -51,7 +51,7 @@ class authContoller {
             return res.json({ token });
         } catch (error) {
             console.error(error);
-            res.status(500).send("Server Error");
+            res.status(500).send("Wrong username or password");
         }
     }
     static async getVerified (req, res) {
