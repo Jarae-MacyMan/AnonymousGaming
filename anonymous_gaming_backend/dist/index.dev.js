@@ -24,6 +24,8 @@ var dashboardRouter = require('./routes/dashboardRouter');
 
 var pfpRouter = require('./routes/pfpRouter');
 
+var friendRouter = require('./routes/friendRouter');
+
 app.use(cors());
 app.use(express.json());
 var PORT = 3001; //app.use(authCheck)
@@ -33,7 +35,8 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/home', homeRouter);
 app.use('/dashboard', dashboardRouter);
-app.use('/pfp', pfpRouter); //"file": 
+app.use('/pfp', pfpRouter);
+app.use('/friend', friendRouter); //"file": 
 
 var io = new Server(server, {
   cors: {

@@ -11,6 +11,8 @@ const homeRouter  = require('./routes/homeRouter')
 const authRouter  = require('./routes/authRouter')
 const dashboardRouter  = require('./routes/dashboardRouter')
 const pfpRouter  = require('./routes/pfpRouter')
+const friendRouter  = require('./routes/friendRouter')
+
 
 
 
@@ -35,6 +37,8 @@ app.use('/posts', postsRouter)
 app.use('/home', homeRouter)
 app.use('/dashboard', dashboardRouter)
 app.use('/pfp', pfpRouter)
+app.use('/friend', friendRouter)
+
 
 //"file": 
 

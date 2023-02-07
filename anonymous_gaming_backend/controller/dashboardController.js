@@ -6,10 +6,10 @@ class dashboardContoller {
     //get user info and posts
     static async getUsers(req, res) {
 
-        console.log(req.user) //comes from auth header
+        //console.log(req.user) //comes from auth header
         try {
             const userData = await pool.query(
-              "SELECT username, title, profile_pic_id, games_won, games_lost FROM users WHERE user_id = $1",
+              "SELECT username, title, profile_pic_id, games_won, games_lost, user_id FROM users WHERE user_id = $1",
               [req.user]
             );
             const userPosts = await pool.query(
@@ -60,7 +60,7 @@ class dashboardContoller {
       }
     }
 
-    //Post a question
+    //Post 
     static async createPost (req, res)  {
         try {
         console.log(req.body)
