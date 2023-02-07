@@ -52,7 +52,7 @@ const Dashboard = (props) => {
     }
   };
   
-  //console.log(context.userPosts)
+  //console.log(context.userInfo)
     //console.log(context.value)
 
 

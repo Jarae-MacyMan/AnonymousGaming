@@ -13,7 +13,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import Otheruserpage from "./components/otheruser/Otheruserpage"
-
+//import Chat from "//components/chat/Chat"
 
 
 function App() {

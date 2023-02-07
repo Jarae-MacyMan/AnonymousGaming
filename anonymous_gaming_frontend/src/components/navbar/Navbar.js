@@ -199,7 +199,11 @@ const Navbar = (props) => {
 
         </Box>
        
-      </TabContext>
+          </TabContext>
+
+          <Divider />
+
+          Friend Requests
 
 
 

@@ -1,7 +1,6 @@
 import {useEffect} from "react";
 
 import { useContext, useState } from "react";
-import React from "react";
 import { Link } from "react-router-dom";
 import Context from "../../context/context";
 //import UserInfo from "../UserInfo";
@@ -14,6 +13,7 @@ import OtherUserPostDisplay from "../posts/OtherUserPostDisplay";
 //import OtherUserPostsFormat from "../posts/OtherUserPostsFormat.js";
 
 
+import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -31,6 +31,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
+
 
 
 const drawerWidth = 240;
@@ -40,6 +44,7 @@ const Otheruserpage = (props) => {
     const context = useContext(Context);
     //const {username} = props 
     //const {name} = useParams()
+    
 
    
     const pathname = window.location.pathname 
@@ -76,10 +81,41 @@ const Otheruserpage = (props) => {
             [context.otherUserInfo]
           );
         //    console.log(context.otherUserPosts)
-        //    console.log(context.otherUserInfo)
+        //    console.log(context.pending)
 
+    // console.log(context.userInfo.user_id)
+    // console.log(context.otherUserInfo.user_id)
+        
+        const [loading, setLoading] = React.useState(false);
 
+        const handleClick = async () => {
+            setLoading(true);
+            context.setPending("Pending")
+            
+            let userID = context.userInfo.user_id
+            let otherUserID = context.otherUserInfo.user_id
+            const body = {userID, otherUserID }
 
+            console.log(body)
+            try{
+                const body = {userID, otherUserID }
+
+                const response = await fetch("http://localhost:3001/friend/send", {
+                    method: "POST",
+                    headers: {
+                    Authorization: `Bearer: ${localStorage.token}`,
+                    "Content-Type": "application/json",
+                },
+                    body: JSON.stringify(body),
+                });
+                const parseRes = await response.json();
+                console.log(parseRes)
+            }catch(error){
+                console.error(error.message);
+            }
+        }
+
+        //console.log(parseRes)
     return (
         
         <div> 
@@ -96,6 +132,19 @@ const Otheruserpage = (props) => {
 
                 <Grid sx={{ mt:6, ml:2, width: 600}}>    
                     <Otheruserstats  otherUserInfo={context.otherUserInfo} />
+
+                    {/* <Button variant="contained">Add Friend</Button> */}
+
+                    <LoadingButton
+                    onClick={handleClick}
+                    endIcon={<SendIcon />}
+                    loading={loading}
+                    loadingPosition="end"
+                    variant="contained"
+                    >
+                    <span>{context.pending}</span>
+                    </LoadingButton>
+
                 </Grid>
             </Grid>
 

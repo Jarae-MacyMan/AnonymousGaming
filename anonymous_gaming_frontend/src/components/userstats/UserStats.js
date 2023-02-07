@@ -31,11 +31,13 @@ const style = {
 
 const Userstats = (props) => {
   const context = useContext(Context);
-  let { username, title, games_won, games_lost  } = props.userInfo;
+  let { username, title, games_won, games_lost, user_id  } = props.userInfo;
 
   const onChange = (e) => {
     context.setInputs({ ...context.inputs, [e.target.name]: e.target.value });
   };
+
+  
 
   const onClick = (e) => {
     e.preventDefault();

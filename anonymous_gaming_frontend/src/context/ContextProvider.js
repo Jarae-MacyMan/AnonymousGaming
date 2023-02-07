@@ -40,6 +40,11 @@ const ContextProvider = ({ children }) => {
 
   const [value, setValue] = React.useState("");
 
+  const [isFriend, setIsFriend] = useState(false)
+  const [pending, setPending] = useState("Send")
+
+  //const [user, setUser] = 
+
 
 
   const state = {
@@ -70,7 +75,12 @@ const ContextProvider = ({ children }) => {
     value,
     setValue,
     friendList,
-    setfriendList
+    setfriendList,
+    isFriend,
+    setIsFriend,
+    pending,
+    setPending
+
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;
