@@ -41,9 +41,12 @@ const ContextProvider = ({ children }) => {
   const [value, setValue] = React.useState("");
 
   const [isFriend, setIsFriend] = useState(false)
+
   const [pending, setPending] = useState("Send")
 
-  //const [user, setUser] = 
+  const [loading, setLoading] = React.useState(false);
+
+  const [hasRequest, setHasRequest] = useState(false)
 
 
 
@@ -79,7 +82,11 @@ const ContextProvider = ({ children }) => {
     isFriend,
     setIsFriend,
     pending,
-    setPending
+    setPending,
+    loading,
+    setLoading,
+    hasRequest,
+    setHasRequest
 
   };
 

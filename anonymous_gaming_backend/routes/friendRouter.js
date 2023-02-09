@@ -5,7 +5,9 @@ const authCheck = require('../middleware/checkAuth');
 
 router.post("/send", authCheck, friendController.sendFriendReq)
 
-// router.post("/", authCheck, friendController.receiveFriendReq)
+router.get("/friendCheck/:userId/:otherUserId", authCheck, friendController.getFriendReq)
+
+router.get("/received", authCheck, friendController.receiveFriendReq)
 
 // router.post("/", authCheck, friendController.acceptFriendReq)
 

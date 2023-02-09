@@ -49,6 +49,86 @@ function () {
         }
       }, null, null, [[3, 10]]);
     }
+  }, {
+    key: "getFriendReq",
+    value: function getFriendReq(req, res) {
+      var userId, otherUserId, checkFr;
+      return regeneratorRuntime.async(function getFriendReq$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              userId = req.params.userId;
+              otherUserId = req.params.otherUserId; // console.log(userId)
+              // console.log(otherUserId)
+
+              _context2.prev = 2;
+              _context2.next = 5;
+              return regeneratorRuntime.awrap(pool.query("SELECT * FROM friend_status WHERE usera_id = $1 AND userb_id = $2", [userId, otherUserId]));
+
+            case 5:
+              checkFr = _context2.sent;
+              //console.log(checkFr.rows[0])
+              res.json(checkFr.rows[0]);
+              _context2.next = 13;
+              break;
+
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](2);
+              console.error(_context2.t0);
+              res.status(500).json("server error");
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, null, [[2, 9]]);
+    }
+  }, {
+    key: "receiveFriendReq",
+    value: function receiveFriendReq(req, res) {
+      var id, receiveFriend, stats, userInfo;
+      return regeneratorRuntime.async(function receiveFriendReq$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              console.log(req.user);
+              id = req.user;
+              _context3.prev = 2;
+              _context3.next = 5;
+              return regeneratorRuntime.awrap(pool.query("SELECT * FROM friend_status WHERE userb_id = $1", [id]));
+
+            case 5:
+              receiveFriend = _context3.sent;
+              _context3.next = 8;
+              return regeneratorRuntime.awrap(pool.query("SELECT * FROM friend_status FULL OUTER JOIN users ON userb_id = user_id"));
+
+            case 8:
+              stats = _context3.sent;
+              userInfo = {
+                receiveFriend: receiveFriend.rows[0],
+                stats: stats.rows
+              };
+              res.json({
+                userInfo: userInfo
+              });
+              _context3.next = 17;
+              break;
+
+            case 13:
+              _context3.prev = 13;
+              _context3.t0 = _context3["catch"](2);
+              console.error(_context3.t0);
+              res.status(500).json("server error");
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, null, null, [[2, 13]]);
+    }
   }]);
 
   return friendContoller;

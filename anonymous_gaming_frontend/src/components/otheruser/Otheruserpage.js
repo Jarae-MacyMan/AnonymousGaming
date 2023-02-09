@@ -85,35 +85,69 @@ const Otheruserpage = (props) => {
 
     // console.log(context.userInfo.user_id)
     // console.log(context.otherUserInfo.user_id)
-        
-        const [loading, setLoading] = React.useState(false);
 
-        const handleClick = async () => {
-            setLoading(true);
-            context.setPending("Pending")
-            
-            let userID = context.userInfo.user_id
-            let otherUserID = context.otherUserInfo.user_id
-            const body = {userID, otherUserID }
+    //if status is false then loading is true 
+    const checkFriend = async () => {
+        let userId = context.userInfo.user_id
+        let otherUserId = context.otherUserInfo.user_id
+       
 
-            console.log(body)
-            try{
-                const body = {userID, otherUserID }
+        try{
+           
 
-                const response = await fetch("http://localhost:3001/friend/send", {
-                    method: "POST",
-                    headers: {
+            const response = await fetch(`http://localhost:3001/friend/friendCheck/${userId}/${otherUserId}`, {
+                method: "GET",
+                headers: {
                     Authorization: `Bearer: ${localStorage.token}`,
                     "Content-Type": "application/json",
                 },
-                    body: JSON.stringify(body),
-                });
-                const parseRes = await response.json();
-                console.log(parseRes)
-            }catch(error){
-                console.error(error.message);
+            });
+            const parseRes = await response.json();
+            if(parseRes.status == false){
+                context.setLoading(true)
+                context.setPending("Pending")
+
+                //console.log(parseRes.status)
             }
+            
+
+        }catch(error){
+            console.error(error.message);
         }
+    }
+
+    checkFriend()
+
+
+
+        
+
+    const handleClick = async () => {
+        context.setLoading(true);
+        context.setPending("Pending")
+            
+        let userID = context.userInfo.user_id
+        let otherUserID = context.otherUserInfo.user_id
+        const body = {userID, otherUserID }
+
+        //console.log(body)
+        try{
+            const body = {userID, otherUserID }
+
+            const response = await fetch("http://localhost:3001/friend/send", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer: ${localStorage.token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            });
+            const parseRes = await response.json();
+            //console.log(parseRes)
+        }catch(error){
+                console.error(error.message);
+        }
+    }
 
         //console.log(parseRes)
     return (
@@ -138,7 +172,7 @@ const Otheruserpage = (props) => {
                     <LoadingButton
                     onClick={handleClick}
                     endIcon={<SendIcon />}
-                    loading={loading}
+                    loading={context.loading}
                     loadingPosition="end"
                     variant="contained"
                     >

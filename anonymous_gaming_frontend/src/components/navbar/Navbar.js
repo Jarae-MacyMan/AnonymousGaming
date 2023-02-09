@@ -33,6 +33,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import Tabs from '@mui/material/Tabs';
 import { red } from '@mui/material/colors';
 import { green } from '@mui/material/colors';
+import Button from '@mui/material/Button';
 
 
 
@@ -102,6 +103,44 @@ const Navbar = (props) => {
     //     localStorage.removeItem("token");
     //     setAuth(false);
     //   };
+
+    const receiveFriendReq = async () => {
+      try {
+        const receiveFriend = await fetch("http://localhost:3001/friend/received", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer: ${localStorage.token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const parseRes = await receiveFriend.json();
+
+        
+          if(parseRes.userInfo.receiveFriend){
+            console.log(parseRes.userInfo.receiveFriend)
+            context.setHasRequest(true)
+          }// } else {
+
+          // }
+        
+        
+        // context.setUserInfo(parseRes.userInfo.userData);
+        // context.setUserPosts(parseRes.userInfo.userPosts);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    receiveFriendReq()
+
+      //console.log(context.hasRequest)
+    
+    const accept = () => {
+      if(context.hasRequest == true){
+        return <Button variant="contained">accept</Button>
+      }
+
+    }
 
 
 
@@ -205,7 +244,7 @@ const Navbar = (props) => {
 
           Friend Requests
 
-
+            {accept()}
 
 
         </Drawer>
