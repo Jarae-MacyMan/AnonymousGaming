@@ -2,6 +2,7 @@ import { useState } from "react";
 import Context from "./context";
 import * as React from 'react';
 
+let arr = []
 
 const ContextProvider = ({ children }) => {
   const [inputs, setInputs] = useState({
@@ -36,7 +37,7 @@ const ContextProvider = ({ children }) => {
 
   const [otherUserPosts, setOtherUserPosts] = useState([])
 
-  const [friendList, setfriendList] = useState([{username: "jar", connected:false}, {username: "uz", connected:true}, {username: "may", connected:true}])
+  const [friendList, setfriendList] = useState([])
 
   const [value, setValue] = React.useState("");
 
@@ -47,6 +48,10 @@ const ContextProvider = ({ children }) => {
   const [loading, setLoading] = React.useState(false);
 
   const [hasRequest, setHasRequest] = useState(false)
+
+  const [requests, setRequests] = useState([])
+
+  const [friend, setFriend] = useState([])
 
 
 
@@ -86,7 +91,11 @@ const ContextProvider = ({ children }) => {
     loading,
     setLoading,
     hasRequest,
-    setHasRequest
+    setHasRequest,
+    requests,
+    setRequests,
+    friend,
+    setFriend
 
   };
 

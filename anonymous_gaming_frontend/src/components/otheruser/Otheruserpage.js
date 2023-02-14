@@ -103,16 +103,19 @@ const Otheruserpage = (props) => {
                 },
             });
             const parseRes = await response.json();
-            if(parseRes.status == false){
+            if(parseRes && parseRes.status == false){
+                console.log(parseRes.status)
                 context.setLoading(true)
                 context.setPending("Pending")
-
                 //console.log(parseRes.status)
+            } else {
+                context.setLoading(false)
             }
             
 
         }catch(error){
             console.error(error.message);
+            context.setLoading(false)
         }
     }
 

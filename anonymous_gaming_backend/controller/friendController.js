@@ -32,16 +32,33 @@ class friendContoller {
     }
 
     static async receiveFriendReq (req, res){
-        console.log(req.user)
+        //console.log(req.user)
         const id = req.user
         try{
             const receiveFriend = await pool.query("SELECT * FROM friend_status WHERE userb_id = $1", [id])
-            const stats = await pool.query("SELECT * FROM friend_status FULL OUTER JOIN users ON userb_id = user_id")
+            const stats = await pool.query("SELECT username, user_id, profile_pic_id, status FROM friend_status FULL OUTER JOIN users ON usera_id = user_id")
             const userInfo = {
                 receiveFriend: receiveFriend.rows[0],
                 stats: stats.rows,
               };
             res.json({userInfo})
+        }catch(error){
+            console.error(error);
+            res.status(500).json("server error"); 
+        }
+    }
+
+    static async acceptFriendReq (req, res) {
+        //const id = req.user
+        const {id} = req.body;
+        console.log(id)
+        try{
+            const accept = await pool.query(
+            "UPDATE friend_status SET status = $1 WHERE usera_id = $2 RETURNING *" ,
+            [true, id]
+            );
+            console.log(accept.rows[0])
+            res.json(accept.rows[0])
         }catch(error){
             console.error(error);
             res.status(500).json("server error"); 

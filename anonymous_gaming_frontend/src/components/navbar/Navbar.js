@@ -34,7 +34,7 @@ import Tabs from '@mui/material/Tabs';
 import { red } from '@mui/material/colors';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-
+import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 
 
 const drawerWidth = 240;
@@ -117,30 +117,56 @@ const Navbar = (props) => {
 
         
           if(parseRes.userInfo.receiveFriend){
-            console.log(parseRes.userInfo.receiveFriend)
+            let arr = parseRes.userInfo.stats
+            arr.pop()
+            context.setRequests(arr)
             context.setHasRequest(true)
           }// } else {
-
-          // }
         
         
-        // context.setUserInfo(parseRes.userInfo.userData);
-        // context.setUserPosts(parseRes.userInfo.userPosts);
       } catch (error) {
         console.error(error);
       }
     }
-
+              //console.log(context.requests)
+              //  let arr = context.requests.pop()
+              //  console.log(arr)
     receiveFriendReq()
+
+
+    
 
       //console.log(context.hasRequest)
     
-    const accept = () => {
-      if(context.hasRequest == true){
-        return <Button variant="contained">accept</Button>
-      }
+    const handleClick = async (id, username) => {
+      //console.log(id)
 
+      try {
+
+        const body = {id}
+        //console.log(body)
+        const response = await fetch("http://localhost:3001/friend/accept", {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer: ${localStorage.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+        const parseRes = await response.json();
+        //console.log(parseRes.usera_id)
+        context.setfriendList([...context.friendList, {username:username, id:parseRes.usera_id, status: true}])
+      } catch (error) {
+        console.error(error.message);
+      }
     }
+
+    //console.log(context.friendList)
+    const friendReqBar = context.requests.map((e) =>{
+      if(context.hasRequest == true && e.status == false){
+        return <div className = "pt-2" >{e.username} <Button onClick={() => handleClick(e.user_id, e.username)} sx={{ m:2}} variant="contained" size="small">accept</Button> </div>
+      }
+    })
 
 
 
@@ -208,23 +234,19 @@ const Navbar = (props) => {
               <Link to="/home" style={{ textDecoration: 'none' }} > Home</Link>
             </ListItemButton>
           </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <MarkChatUnreadIcon/>
+              </ListItemIcon> 
+              Private Messages
+            </ListItemButton>
+          </ListItem>
         </List>
           <Divider />
 
-            Private Messages
 
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+         
 
           <Divider />
 
@@ -242,9 +264,11 @@ const Navbar = (props) => {
 
           <Divider />
 
-          Friend Requests
+          <div>Friend Requests</div>
 
-            {accept()}
+            
+
+            {friendReqBar} 
 
 
         </Drawer>

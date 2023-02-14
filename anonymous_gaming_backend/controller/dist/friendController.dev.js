@@ -93,18 +93,18 @@ function () {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              console.log(req.user);
+              //console.log(req.user)
               id = req.user;
-              _context3.prev = 2;
-              _context3.next = 5;
+              _context3.prev = 1;
+              _context3.next = 4;
               return regeneratorRuntime.awrap(pool.query("SELECT * FROM friend_status WHERE userb_id = $1", [id]));
 
-            case 5:
+            case 4:
               receiveFriend = _context3.sent;
-              _context3.next = 8;
-              return regeneratorRuntime.awrap(pool.query("SELECT * FROM friend_status FULL OUTER JOIN users ON userb_id = user_id"));
+              _context3.next = 7;
+              return regeneratorRuntime.awrap(pool.query("SELECT username, user_id, profile_pic_id, status FROM friend_status FULL OUTER JOIN users ON usera_id = user_id"));
 
-            case 8:
+            case 7:
               stats = _context3.sent;
               userInfo = {
                 receiveFriend: receiveFriend.rows[0],
@@ -113,21 +113,56 @@ function () {
               res.json({
                 userInfo: userInfo
               });
-              _context3.next = 17;
+              _context3.next = 16;
               break;
 
-            case 13:
-              _context3.prev = 13;
-              _context3.t0 = _context3["catch"](2);
+            case 12:
+              _context3.prev = 12;
+              _context3.t0 = _context3["catch"](1);
               console.error(_context3.t0);
               res.status(500).json("server error");
 
-            case 17:
+            case 16:
             case "end":
               return _context3.stop();
           }
         }
-      }, null, null, [[2, 13]]);
+      }, null, null, [[1, 12]]);
+    }
+  }, {
+    key: "acceptFriendReq",
+    value: function acceptFriendReq(req, res) {
+      var id, accept;
+      return regeneratorRuntime.async(function acceptFriendReq$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              //const id = req.user
+              id = req.body.id;
+              console.log(id);
+              _context4.prev = 2;
+              _context4.next = 5;
+              return regeneratorRuntime.awrap(pool.query("UPDATE friend_status SET status = $1 WHERE usera_id = $2 RETURNING *", [true, id]));
+
+            case 5:
+              accept = _context4.sent;
+              console.log(accept.rows[0]);
+              res.json(accept.rows[0]);
+              _context4.next = 14;
+              break;
+
+            case 10:
+              _context4.prev = 10;
+              _context4.t0 = _context4["catch"](2);
+              console.error(_context4.t0);
+              res.status(500).json("server error");
+
+            case 14:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, null, null, [[2, 10]]);
     }
   }]);
 
