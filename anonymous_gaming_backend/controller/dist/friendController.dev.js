@@ -180,10 +180,9 @@ function () {
 
             case 5:
               getFr = _context5.sent;
-              console.log(getFr.rows);
 
               if (!(getFr.rows.length !== 0)) {
-                _context5.next = 27;
+                _context5.next = 25;
                 break;
               }
 
@@ -191,68 +190,65 @@ function () {
               arr = getFr.rows;
               i = 0;
 
-            case 10:
+            case 9:
               if (!(i < arr.length)) {
-                _context5.next = 27;
+                _context5.next = 25;
                 break;
               }
 
               if (!(arr[i].userb_id == id)) {
-                _context5.next = 18;
+                _context5.next = 17;
                 break;
               }
 
-              _context5.next = 14;
+              _context5.next = 13;
               return regeneratorRuntime.awrap(pool.query("SELECT username, profile_pic_id, user_id FROM users WHERE user_id = $1", [arr[i].usera_id]));
 
-            case 14:
+            case 13:
               getFrName = _context5.sent;
-              //console.log(getFrName.rows[0])
+              //console.log(getFrName.rows[0])  
               friendListArr.push(getFrName.rows[0]);
-              _context5.next = 23;
+              _context5.next = 22;
               break;
 
-            case 18:
+            case 17:
               if (!(arr[i].usera_id == id)) {
-                _context5.next = 23;
+                _context5.next = 22;
                 break;
               }
 
-              _context5.next = 21;
+              _context5.next = 20;
               return regeneratorRuntime.awrap(pool.query("SELECT username, profile_pic_id, user_id FROM users WHERE user_id = $1", [arr[i].userb_id]));
 
-            case 21:
+            case 20:
               getFrName = _context5.sent;
               //console.log(getFrName.rows[0])
               friendListArr.push(getFrName.rows[0]);
 
-            case 23:
-              console.log(friendListArr);
-
-            case 24:
+            case 22:
               i++;
-              _context5.next = 10;
+              _context5.next = 9;
               break;
 
-            case 27:
+            case 25:
               //if(usera !== id) then use uder b to find fr name else use user a
               //const getFrName = await pool.query("")
               res.json(friendListArr);
-              _context5.next = 34;
+              _context5.next = 32;
               break;
 
-            case 30:
-              _context5.prev = 30;
+            case 28:
+              _context5.prev = 28;
               _context5.t0 = _context5["catch"](2);
               console.error(_context5.t0);
               res.status(500).json("server error");
 
-            case 34:
+            case 32:
             case "end":
               return _context5.stop();
           }
         }
-      }, null, null, [[2, 30]]);
+      }, null, null, [[2, 28]]);
     }
   }]);
 

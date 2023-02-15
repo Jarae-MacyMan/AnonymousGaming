@@ -70,17 +70,17 @@ class friendContoller {
         let friendListArr = []
         try{
             const getFr = await pool.query("SELECT * FROM friend_status WHERE userb_id = $1 AND status = $2 OR usera_id = $1 AND status = $2", [id, true])
-            console.log(getFr.rows)
+            //console.log(getFr.rows)
             let getFrName
             if(getFr.rows.length !== 0){
                 //console.log(1)
-                let arr = getFr.rows
+                let arr = getFr.rows 
                 for(let i = 0; i < arr.length; i++) {
                     //console.log(arr[i])
                     if (arr[i].userb_id == id){
                         //console.log(arr[i].usera_id)
                         getFrName = await pool.query("SELECT username, profile_pic_id, user_id FROM users WHERE user_id = $1", [arr[i].usera_id])
-                        //console.log(getFrName.rows[0])
+                        //console.log(getFrName.rows[0])  
                         friendListArr.push(getFrName.rows[0])
                     }else if (arr[i].usera_id == id){
                         //console.log(arr[i].userb_id)
@@ -89,7 +89,7 @@ class friendContoller {
                         friendListArr.push(getFrName.rows[0])
 
                     }
-                    console.log(friendListArr)
+                    //console.log(friendListArr)
                 }
                 //console.log(getFrName.rows[0])
             }
