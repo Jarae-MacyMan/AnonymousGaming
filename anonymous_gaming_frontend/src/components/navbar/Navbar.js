@@ -131,10 +131,11 @@ const Navbar = (props) => {
               //console.log(context.requests)
               //  let arr = context.requests.pop()
               //  console.log(arr)
-    receiveFriendReq()
-
-
     
+
+    useEffect(() => {
+      receiveFriendReq()
+    }, []);
 
       //console.log(context.hasRequest)
     
@@ -168,7 +169,30 @@ const Navbar = (props) => {
       }
     })
 
+    const getFriends = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/friend/allFriends", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer: ${localStorage.token}`,
+          },
+        });
+  
+        const parseRes = await response.json();
+        console.log(parseRes)
+        context.setfriendList(parseRes)
+        // context.setUserInfo(parseRes.userInfo.userData);
+        // context.setUserPosts(parseRes.userInfo.userPosts);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+
+
+    useEffect(() => {
+      getFriends()
+    }, []);
 
     return (
         

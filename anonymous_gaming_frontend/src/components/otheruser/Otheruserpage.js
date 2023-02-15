@@ -103,23 +103,30 @@ const Otheruserpage = (props) => {
                 },
             });
             const parseRes = await response.json();
+            console.log(parseRes.status)
             if(parseRes && parseRes.status == false){
                 console.log(parseRes.status)
                 context.setLoading(true)
                 context.setPending("Pending")
                 //console.log(parseRes.status)
-            } else {
-                context.setLoading(false)
+            } else if (parseRes.status == true) {
+                console.log(parseRes)
+                context.setPending("Already Friends")
+                context.setLoading(true)
             }
             
 
         }catch(error){
             console.error(error.message);
             context.setLoading(false)
+            context.setPending("send")
+
         }
     }
-
-    checkFriend()
+    //useEffect(() => {
+        checkFriend()
+      //}, []);
+    
 
 
 

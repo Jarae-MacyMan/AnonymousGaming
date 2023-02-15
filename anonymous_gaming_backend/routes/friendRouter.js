@@ -11,7 +11,7 @@ router.get("/received", authCheck, friendController.receiveFriendReq)
 
 router.put("/accept", authCheck, friendController.acceptFriendReq)
 
-// router.post("/", authCheck, friendController.getfriend)
+router.get("/allFriends", authCheck, friendController.allFriends)
 
 
 module.exports = router;
