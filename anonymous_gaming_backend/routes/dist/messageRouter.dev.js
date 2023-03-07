@@ -4,10 +4,10 @@ var express = require('express');
 
 var router = express.Router();
 
-var chatController = require('../controller/chatController.js');
+var messageController = require('../controller/messageController.js');
 
 var authCheck = require('../middleware/checkAuth');
 
-router.get("/", chatController.addMessage);
-router.post("/chatId", chatController.getMessages);
+router.post("/", messageController.addMessage);
+router.get("/:chatId", messageController.getMessages);
 module.exports = router;
