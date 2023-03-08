@@ -31,20 +31,59 @@ class classChat {
     }
 
     static async allUserChats (req, res) {
-        //const id = req.user
+        const id = req.user
         try {
        
-            const member = req.params.userId
+           let fri
 
-            console.log(member)
+            //console.log(id)
 
             const chatrooms = await pool.query(
                 "SELECT * FROM chats WHERE  $1 = any (members)",
-                [member]);
+                [id]);
             
-            console.log(chatrooms.rows) 
+            
+            
 
-            res.json(chatrooms.rows);
+            let arr = []
+            let finalArr = []
+            chatrooms.rows.map(e => ( 
+                    arr.push(e.members)
+                ));
+
+                for (let x of arr){
+                    for(let y of x){
+                        if(y != id){
+                            console.log(y)
+                            fri = await pool.query(
+                                "SELECT username, user_id, profile_pic_id FROM users WHERE  user_id = $1 ",
+                                [y])
+                                finalArr.push(fri.rows[0])
+
+                        }
+                    }
+                }
+
+
+                console.log(finalArr)
+                // for (let i of arr){
+                //     if (i != id) {
+                //         fri = await pool.query(
+                //             "SELECT username, user_id, profile_pic_id FROM users WHERE  user_id = $1 ",
+                //             [i])
+                //         console.log(fri.rows[0])
+                //     }
+                // }
+
+
+                const chatsInfo = {
+                    chatRoom: chatrooms.rows,
+                    chattingWith: finalArr
+                }
+
+            res.json(chatsInfo);
+            //res.json(finalArr);
+
 
 
         } catch (error) {

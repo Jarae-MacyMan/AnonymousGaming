@@ -53,6 +53,10 @@ const ContextProvider = ({ children }) => {
 
   const [friend, setFriend] = useState([])
 
+  const [chats, setChats] = useState([])
+
+  const [chat, setChat] = useState("")
+
 
 
   const state = {
@@ -95,7 +99,11 @@ const ContextProvider = ({ children }) => {
     requests,
     setRequests,
     friend,
-    setFriend
+    setFriend,
+    chats,
+    setChats,
+    chat,
+    setChat
 
   };
 

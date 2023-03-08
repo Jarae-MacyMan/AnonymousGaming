@@ -13,7 +13,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import Otheruserpage from "./components/otheruser/Otheruserpage"
-//import Chat from "//components/chat/Chat"
+import Chat from "./components/chat/Chat"
 
 
 function App() {
@@ -99,6 +99,18 @@ function App() {
             element={
               isAuthenticated ? (
                 <Otheruserpage setAuth={setAuth} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          /> 
+          <Route
+            exact
+            path="/chat"
+            component={Chat}
+            element={
+              isAuthenticated ? (
+                <Chat setAuth={setAuth} />
               ) : (
                 <Navigate to="/login" />
               )

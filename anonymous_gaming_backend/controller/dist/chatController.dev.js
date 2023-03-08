@@ -58,36 +58,135 @@ function () {
   }, {
     key: "allUserChats",
     value: function allUserChats(req, res) {
-      var member, chatrooms;
+      var id, fri, chatrooms, arr, finalArr, _i, _arr, x, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, y, chatsInfo;
+
       return regeneratorRuntime.async(function allUserChats$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
-              member = req.params.userId;
-              console.log(member);
-              _context2.next = 5;
-              return regeneratorRuntime.awrap(pool.query("SELECT * FROM chats WHERE  $1 = any (members)", [member]));
+              id = req.user;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return regeneratorRuntime.awrap(pool.query("SELECT * FROM chats WHERE  $1 = any (members)", [id]));
 
-            case 5:
+            case 4:
               chatrooms = _context2.sent;
-              console.log(chatrooms.rows);
-              res.json(chatrooms.rows);
-              _context2.next = 14;
+              arr = [];
+              finalArr = [];
+              chatrooms.rows.map(function (e) {
+                return arr.push(e.members);
+              });
+              _i = 0, _arr = arr;
+
+            case 9:
+              if (!(_i < _arr.length)) {
+                _context2.next = 44;
+                break;
+              }
+
+              x = _arr[_i];
+              _iteratorNormalCompletion = true;
+              _didIteratorError = false;
+              _iteratorError = undefined;
+              _context2.prev = 14;
+              _iterator = x[Symbol.iterator]();
+
+            case 16:
+              if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+                _context2.next = 27;
+                break;
+              }
+
+              y = _step.value;
+
+              if (!(y != id)) {
+                _context2.next = 24;
+                break;
+              }
+
+              console.log(y);
+              _context2.next = 22;
+              return regeneratorRuntime.awrap(pool.query("SELECT username, user_id, profile_pic_id FROM users WHERE  user_id = $1 ", [y]));
+
+            case 22:
+              fri = _context2.sent;
+              finalArr.push(fri.rows[0]);
+
+            case 24:
+              _iteratorNormalCompletion = true;
+              _context2.next = 16;
               break;
 
-            case 10:
-              _context2.prev = 10;
-              _context2.t0 = _context2["catch"](0);
-              console.error(_context2.t0);
+            case 27:
+              _context2.next = 33;
+              break;
+
+            case 29:
+              _context2.prev = 29;
+              _context2.t0 = _context2["catch"](14);
+              _didIteratorError = true;
+              _iteratorError = _context2.t0;
+
+            case 33:
+              _context2.prev = 33;
+              _context2.prev = 34;
+
+              if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+                _iterator["return"]();
+              }
+
+            case 36:
+              _context2.prev = 36;
+
+              if (!_didIteratorError) {
+                _context2.next = 39;
+                break;
+              }
+
+              throw _iteratorError;
+
+            case 39:
+              return _context2.finish(36);
+
+            case 40:
+              return _context2.finish(33);
+
+            case 41:
+              _i++;
+              _context2.next = 9;
+              break;
+
+            case 44:
+              console.log(finalArr); // for (let i of arr){
+              //     if (i != id) {
+              //         fri = await pool.query(
+              //             "SELECT username, user_id, profile_pic_id FROM users WHERE  user_id = $1 ",
+              //             [i])
+              //         console.log(fri.rows[0])
+              //     }
+              // }
+
+              chatsInfo = {
+                chatRoom: chatrooms.rows,
+                chattingWith: finalArr
+              };
+              res.json(chatsInfo); //res.json(finalArr);
+
+              _context2.next = 53;
+              break;
+
+            case 49:
+              _context2.prev = 49;
+              _context2.t1 = _context2["catch"](1);
+              console.error(_context2.t1);
               res.status(500).json("server error");
 
-            case 14:
+            case 53:
             case "end":
               return _context2.stop();
           }
         }
-      }, null, null, [[0, 10]]);
+      }, null, null, [[1, 49], [14, 29, 33, 41], [34,, 36, 40]]);
     }
   }, {
     key: "findChat",

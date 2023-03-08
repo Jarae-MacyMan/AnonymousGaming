@@ -8,7 +8,7 @@ var chatController = require('../controller/chatController.js');
 
 var authCheck = require('../middleware/checkAuth');
 
-router.get("/:userId", chatController.allUserChats);
+router.get("/allChats", authCheck, chatController.allUserChats);
 router.get('/find/:firstId/:secondId', chatController.findChat);
 router.post("/createChatRoom", chatController.createChatRoom);
 module.exports = router;

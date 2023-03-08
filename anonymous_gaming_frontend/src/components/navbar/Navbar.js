@@ -115,27 +115,27 @@ const Navbar = (props) => {
         });
         const parseRes = await receiveFriend.json();
 
-        
+        //if they have friends put them in context 
           if(parseRes.userInfo.receiveFriend){
             let arr = parseRes.userInfo.stats
             arr.pop()
             context.setRequests(arr)
             context.setHasRequest(true)
-          }// } else {
+          }
         
         
       } catch (error) {
         console.error(error);
       }
     }
-              //console.log(context.requests)
-              //  let arr = context.requests.pop()
-              //  console.log(arr)
+          
     
 
     useEffect(() => {
       receiveFriendReq()
     }, []);
+
+    
 
       //console.log(context.hasRequest)
     
@@ -153,7 +153,7 @@ const Navbar = (props) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(body),
-        });
+        }); //when u ckick accept adds friend to friemd list
         const parseRes = await response.json();
         //console.log(parseRes.usera_id)
         context.setfriendList([...context.friendList, {username:username, id:parseRes.usera_id, status: true}])
@@ -194,6 +194,103 @@ const Navbar = (props) => {
       getFriends()
     }, []);
 
+    const getChats = async () => {
+      //let userId = context.userInfo.user_id
+
+
+      try {
+          const response = await fetch(`http://localhost:3001/chat/allChats`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer: ${localStorage.token}`,
+                "Content-Type": "application/json",
+              },
+            
+          });
+          
+          const parseRes = await response.json();
+          //console.log(parseRes.chattingWith)
+          //context.setChats(parseRes);
+          const chattingWith = parseRes.chattingWith
+          const chatRoom = parseRes.chatRoom
+          
+          let arr = []
+          chattingWith.forEach((num1, index) => {
+            const num2 = chatRoom[index];
+            //console.log(num1, num2);
+            const obj = {
+              username: num1.username,
+              userId: num1.user_id,
+              userPfp: num1.profile_pic_id,
+              chatId: num2.chat_id
+            }
+
+            arr.push(obj)
+
+          });
+
+          context.setChats(arr)
+
+
+          
+        } catch (error) {
+          console.error(error);
+        }
+         
+
+        
+  }
+
+  //console.log(context.chats)
+  // console.log(context.chats.chatRoom)
+  
+// onClick={() => handleClick(e.chatId)} 
+  useEffect(() => {
+      getChats();
+  }, []);
+
+  const chatBar = context.chats.map((e) =>{
+    return <> <div className = "py-2"  > {e.username} </div> <Divider />  </>
+  })
+
+
+
+    const chatOrElse = function() { 
+      if (pathname == "/chat"){
+        return (<div> 
+          <Divider />
+          {chatBar} 
+          </div>)
+      } else {
+        return (
+          <div> 
+              
+              <Divider />
+
+              <div>Add Friends</div>
+
+              <TabContext  value={context.value}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                  <TabList onChange={handleChange} orientation="vertical" aria-label="lab API tabs example">
+                    {friendListBar}
+                  </TabList>
+                </Box>
+              </TabContext>
+
+              <Divider />
+
+              <div>Friend Requests</div>
+                {friendReqBar} 
+          
+          </div>
+        )
+      } 
+    }
+
+
+
+    
+    
     return (
         
         <Box sx={{ display: 'flex' }}>
@@ -213,7 +310,7 @@ const Navbar = (props) => {
 
         
 
-        <Drawer
+      <Drawer
           sx={{
             width: drawerWidth,
             flexShrink: 0,
@@ -263,46 +360,29 @@ const Navbar = (props) => {
               <ListItemIcon>
                 <MarkChatUnreadIcon/>
               </ListItemIcon> 
-              Private Messages
+              <Link to="/chat" style={{ textDecoration: 'none' }} > Private Messages </Link>
             </ListItemButton>
           </ListItem>
         </List>
-          <Divider />
 
 
          
 
-          <Divider />
 
-          Add Friends
-
-          <TabContext  value={context.value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} orientation="vertical" aria-label="lab API tabs example">
-            {friendListBar}
-          </TabList>
-
-        </Box>
-       
-          </TabContext>
-
-          <Divider />
-
-          <div>Friend Requests</div>
-
+            {chatOrElse ()}
             
+    </Drawer>
 
-            {friendReqBar} 
 
 
-        </Drawer>
+
         <Box
           component="main"
           sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
         >
           <Toolbar />
-          
         </Box>
+        
       </Box>
     )
 }
