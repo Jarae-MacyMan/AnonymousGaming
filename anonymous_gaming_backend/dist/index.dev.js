@@ -53,13 +53,32 @@ var io = new Server(server, {
     origin: "http://localhost:3000",
     credentials: "true"
   }
-}); // io.on("connect", (socket) => {
-//   console.log(socket.id)
-//   socket.on("disconnect", () => {
-//     console.log("user diconnected", socket.id)
-//   })
-// })
+});
+var activeUsers = [];
+io.on("connect", function (socket) {
+  console.log(socket.id); //add new user  on means get from frontend
 
+  socket.on('new-user-add', function (newUserId) {
+    if (!activeUsers.some(function (user) {
+      return user.userId == newUserId;
+    })) {
+      activeUsers.push({
+        userId: newUserId,
+        socketId: socket.id
+      });
+    }
+
+    io.emit('get_users', activeUsers);
+  }); //emit means send
+
+  socket.on("disconnect", function () {
+    activeUsers + activeUsers.filter(function (user) {
+      return user.socketId != socket.id;
+    });
+    io.emit('get-users', activeUsers);
+    console.log("user diconnected", socket.id);
+  });
+});
 server.listen(PORT, function () {
   console.log("server is running on PORT ".concat(PORT));
 });

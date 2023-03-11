@@ -250,8 +250,10 @@ const Navbar = (props) => {
   }, []);
 
   const chatBar = context.chats.map((e) =>{
-    return <> <div className = "py-2"  > {e.username} </div> <Divider />  </>
+    return <> <div className = "py-2" onClick={() => context.setCurrChat(e)}  > {e.username} </div> <Divider />  </>
   })
+
+  //e.user_id, e.username
 
 
 

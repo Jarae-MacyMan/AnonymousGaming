@@ -61,13 +61,30 @@ const io = new Server(server, {
   }
 })
 
-// io.on("connect", (socket) => {
-//   console.log(socket.id)
+let activeUsers = []
 
-//   socket.on("disconnect", () => {
-//     console.log("user diconnected", socket.id)
-//   })
-// })
+io.on("connect", (socket) => {
+  console.log(socket.id)
+
+  //add new user  on means get from frontend
+  socket.on('new-user-add', (newUserId) => {
+    if(!activeUsers.some((user) => user.userId == newUserId)) {
+      activeUsers.push({
+        userId: newUserId,
+        socketId: socket.id
+      })
+    }
+    io.emit('get_users', activeUsers)
+  })
+
+  //emit means send
+
+  socket.on("disconnect", () => {
+    activeUsers + activeUsers.filter((user) => user.socketId != socket.id)
+    io.emit('get-users', activeUsers)
+    console.log("user diconnected", socket.id)
+  })
+})
 
 
 

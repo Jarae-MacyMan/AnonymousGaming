@@ -8,6 +8,6 @@ var messageController = require('../controller/messageController.js');
 
 var authCheck = require('../middleware/checkAuth');
 
-router.post("/", messageController.addMessage);
-router.get("/:chatId", messageController.getMessages);
+router.post("/", authCheck, messageController.addMessage);
+router.get("/:chatId", authCheck, messageController.getMessages);
 module.exports = router;

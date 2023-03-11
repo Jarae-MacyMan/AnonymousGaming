@@ -55,7 +55,11 @@ const ContextProvider = ({ children }) => {
 
   const [chats, setChats] = useState([])
 
-  const [chat, setChat] = useState("")
+  const [currChat, setCurrChat] = useState({})
+
+  const [messages, setMessages] = useState([])
+
+  const [newMessage, setNewMessage] = useState('')
 
 
 
@@ -102,8 +106,12 @@ const ContextProvider = ({ children }) => {
     setFriend,
     chats,
     setChats,
-    chat,
-    setChat
+    currChat,
+    setCurrChat,
+    messages,
+    setMessages,
+    newMessage,
+    setNewMessage
 
   };
 

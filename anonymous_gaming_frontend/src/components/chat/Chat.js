@@ -15,6 +15,7 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 
 
 // let socket
@@ -23,34 +24,72 @@ import Grid from '@mui/material/Grid';
 const Chat = (props) => {
     const context = useContext(Context);
     let userId = context.userInfo.user_id
+    let chatID = parseInt(context.currChat.chatId)
+    //console.log(chatID )
+
+    const getChat = async () => {
+
+        try {
+            const response = await fetch(`http://localhost:3001/message/${chatID}`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer: ${localStorage.token}`,             "Content-Type": "application/json",
+                "Content-Type": "application/json",
+
+              },
+            });
+      
+            const parseRes = await response.json();
+            //console.log(parseRes)
+            context.setMessages(parseRes)
+            // // context.setUserInfo(parseRes.userInfo.userData);
+            // // context.setUserPosts(parseRes.userInfo.userPosts);
+          } catch (error) {
+            console.error(error);
+          }
+       
+    }
+
+  //console.log(context.messages)
 
 
-    //const [messages, setMessages] = useState([])
-    //const [message, setMessage] = useState('')
-    //socket.on('me')
+    if (chatID) getChat();
     
-    // const connectionOptions =  {
-    //     "forceNew" : true,
-    //     "reconnectionAttempts": "Infinity", 
-    //     "timeout" : 10000,                  
-    //     "transports" : ["websocket"]
-    // }
-    // var socket = io(ENDPOINT, {
-    //     query: {
-    //         //Authorization: `Bearer: ${localStorage.token}`,
-    //         token: localStorage.token
-    //     }
-    // });
+    const messageDisplay = context.messages.map((message) => {
+        return (
+            <>
+                <div className = {message.sender_id == userId? "message own" : "message other"}>
+                    <span>{message.text}</span>
+                    <span></span>
+                </div>
+            </> 
+        )
+    })
 
-    //socket = io.connect(ENDPOINT, connectionOptions)
-
-    //socket.
-    
+    const handleChange = (newMessage) => {
+        context.setNewMessage(newMessage)
+    }
 
     return(
         <div>
             
             <Navbar isAuthenticated = {props.isAuthenticated} setIsAuthenticated = {props.setIsAuthenticated} /> 
+
+      
+
+        {chatID ? (
+
+            <>
+            {messageDisplay}
+
+            <TextField  onChange = {handleChange} id="outlined-basic" label="message..." variant="outlined" />
+            <button   variant="contained"> SEND </button>
+            </>
+
+        ) : (
+            <span> tap to start convo</span>
+        )}
+        
 
         </div>
     )
