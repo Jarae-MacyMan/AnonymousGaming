@@ -209,7 +209,7 @@ const Navbar = (props) => {
           });
           
           const parseRes = await response.json();
-          //console.log(parseRes.chattingWith)
+          //console.log(parseRes)
           //context.setChats(parseRes);
           const chattingWith = parseRes.chattingWith
           const chatRoom = parseRes.chatRoom
@@ -222,7 +222,8 @@ const Navbar = (props) => {
               username: num1.username,
               userId: num1.user_id,
               userPfp: num1.profile_pic_id,
-              chatId: num2.chat_id
+              chatId: num2.chat_id,
+              members: num2.members
             }
 
             arr.push(obj)

@@ -9,7 +9,7 @@ class MessageChat {
                 "INSERT INTO messages (chat_id, sender_id, text) VALUES ($1, $2, $3) RETURNING *", 
                 [chatId, senderId, text])
 
-            res.json(message.rows[0]);
+            res.json(message.rows[0]); 
 
         } catch (error) {
             console.error(error)

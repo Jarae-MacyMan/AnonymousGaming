@@ -61,6 +61,12 @@ const ContextProvider = ({ children }) => {
 
   const [newMessage, setNewMessage] = useState('')
 
+  const [onlineUsers, setOnlineUsers] = useState([])
+
+  const [sendMessage, setSendMessage] = useState(null)
+
+  const [recieveMessage, setRecieveMessage] = useState(null)
+
 
 
   const state = {
@@ -111,7 +117,13 @@ const ContextProvider = ({ children }) => {
     messages,
     setMessages,
     newMessage,
-    setNewMessage
+    setNewMessage,
+    onlineUsers,
+    setOnlineUsers,
+    sendMessage,
+    setSendMessage,
+    recieveMessage,
+    setRecieveMessage
 
   };
 

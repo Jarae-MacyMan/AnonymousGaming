@@ -50,69 +50,49 @@ app.use('/message', messageRouter); //"file":
 
 var io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
-    credentials: "true"
+    origin: "http://localhost:3000"
   }
 });
 var activeUsers = [];
 io.on("connect", function (socket) {
   console.log(socket.id); //add new user  on means get from frontend
+  //on is always active on the backend  with on we take info from forntend
 
   socket.on('new-user-add', function (newUserId) {
     if (!activeUsers.some(function (user) {
       return user.userId == newUserId;
     })) {
+      //if user is not already registered in the socket
       activeUsers.push({
         userId: newUserId,
-        socketId: socket.id
+        socketId: socket.id //new socket id
+
       });
     }
 
-    io.emit('get_users', activeUsers);
-  }); //emit means send
+    console.log("Connected users", activeUsers);
+    io.emit('get_users', activeUsers); //emit means send to the client side
+  }); // socket.on('send-message', (data) => { //search for current receiver in active users 
+  //   const {receiverId} = data 
+  //   const user = activeUsers.find((user) => user.userId = receiverId)
+  //   console.log("sending message to rece", receiverId)
+  //   console.log("Data", data)
+  //   if(user){ //if user exsist then checkj their socket id 
+  //     io.to(user.socket.id).emit('receive-message', data)
+  //   }
+  // })
+
+  console.log(activeUsers); //when someone leaves remove them form arr
 
   socket.on("disconnect", function () {
-    activeUsers + activeUsers.filter(function (user) {
+    activeUsers = activeUsers.filter(function (user) {
       return user.socketId != socket.id;
-    });
+    }); //takes the user id that is dissconeccting out of the array
+
     io.emit('get-users', activeUsers);
-    console.log("user diconnected", socket.id);
+    console.log("user diconnected", activeUsers);
   });
 });
 server.listen(PORT, function () {
   console.log("server is running on PORT ".concat(PORT));
-});
-io.use(function _callee(socket, next) {
-  var token, payload;
-  return regeneratorRuntime.async(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.prev = 0;
-          token = socket.handshake.query.Authorization;
-          _context.next = 4;
-          return regeneratorRuntime.awrap(jwt.verify(token, process.env.SECRET_KEY || 'shh'));
-
-        case 4:
-          payload = _context.sent;
-          socket.userId = payload.user;
-          _context.next = 10;
-          break;
-
-        case 8:
-          _context.prev = 8;
-          _context.t0 = _context["catch"](0);
-
-        case 10:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, null, null, [[0, 8]]);
-});
-io.on('connection', function (socket) {
-  console.log("Connected:" + socket.userId);
-  socket.on('disconnect', function () {
-    console.log("Disconnected:" + socket.userId);
-  });
 });

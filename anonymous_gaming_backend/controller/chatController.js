@@ -54,7 +54,7 @@ class classChat {
                 for (let x of arr){
                     for(let y of x){
                         if(y != id){
-                            console.log(y)
+                            //console.log(y)
                             fri = await pool.query(
                                 "SELECT username, user_id, profile_pic_id FROM users WHERE  user_id = $1 ",
                                 [y])
@@ -65,7 +65,7 @@ class classChat {
                 }
 
 
-                console.log(finalArr)
+                //console.log(finalArr)
                 // for (let i of arr){
                 //     if (i != id) {
                 //         fri = await pool.query(
@@ -99,7 +99,7 @@ class classChat {
             const member = req.params.firstId
             const otherMember = req.params.secondId
 
-            console.log(otherMember)
+            //console.log(otherMember)
 
             const chatroom = await pool.query(
                 "SELECT * FROM chats WHERE $1 = any (members) AND $2 = any (members)",

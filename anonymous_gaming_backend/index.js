@@ -57,7 +57,6 @@ app.use('/message', messageRouter)
 const io = new Server(server, {
   cors: {
     origin:"http://localhost:3000",
-    credentials: "true"
   }
 })
 
@@ -67,22 +66,35 @@ io.on("connect", (socket) => {
   console.log(socket.id)
 
   //add new user  on means get from frontend
+  //on is always active on the backend  with on we take info from forntend
   socket.on('new-user-add', (newUserId) => {
-    if(!activeUsers.some((user) => user.userId == newUserId)) {
+    if(!activeUsers.some((user) => user.userId == newUserId)) { //if user is not already registered in the socket
       activeUsers.push({
         userId: newUserId,
-        socketId: socket.id
+        socketId: socket.id //new socket id
       })
     }
-    io.emit('get_users', activeUsers)
+    console.log("Connected users",  activeUsers )
+    io.emit('get_users', activeUsers)    //emit means send to the client side
+
   })
 
-  //emit means send
+  // socket.on('send-message', (data) => { //search for current receiver in active users 
+  //   const {receiverId} = data 
+  //   const user = activeUsers.find((user) => user.userId = receiverId)
+  //   console.log("sending message to rece", receiverId)
+  //   console.log("Data", data)
+  //   if(user){ //if user exsist then checkj their socket id 
+  //     io.to(user.socket.id).emit('receive-message', data)
+  //   }
+  // })
 
+  console.log(activeUsers)
+  //when someone leaves remove them form arr
   socket.on("disconnect", () => {
-    activeUsers + activeUsers.filter((user) => user.socketId != socket.id)
+    activeUsers = activeUsers.filter((user) => user.socketId != socket.id) //takes the user id that is dissconeccting out of the array
     io.emit('get-users', activeUsers)
-    console.log("user diconnected", socket.id)
+    console.log("user diconnected",  activeUsers)
   })
 })
 
@@ -94,19 +106,4 @@ server.listen(PORT, () => {
   console.log(`server is running on PORT ${PORT}`);
 });
 
-io.use( async (socket, next)=>{
-  try{
-    const token = socket.handshake.query.Authorization
-    const payload = await jwt.verify(token, process.env.SECRET_KEY || 'shh')
-    socket.userId = payload.user
-  } catch (err) {}
-})
 
-io.on('connection', (socket) => {
-  console.log("Connected:" + socket.userId)
-
-  socket.on('disconnect', ()=> {
-    console.log("Disconnected:" + socket.userId)
-
-  })
-})

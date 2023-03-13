@@ -80,7 +80,7 @@ function () {
 
             case 9:
               if (!(_i < _arr.length)) {
-                _context2.next = 44;
+                _context2.next = 43;
                 break;
               }
 
@@ -93,71 +93,71 @@ function () {
 
             case 16:
               if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                _context2.next = 27;
+                _context2.next = 26;
                 break;
               }
 
               y = _step.value;
 
               if (!(y != id)) {
-                _context2.next = 24;
+                _context2.next = 23;
                 break;
               }
 
-              console.log(y);
-              _context2.next = 22;
+              _context2.next = 21;
               return regeneratorRuntime.awrap(pool.query("SELECT username, user_id, profile_pic_id FROM users WHERE  user_id = $1 ", [y]));
 
-            case 22:
+            case 21:
               fri = _context2.sent;
               finalArr.push(fri.rows[0]);
 
-            case 24:
+            case 23:
               _iteratorNormalCompletion = true;
               _context2.next = 16;
               break;
 
-            case 27:
-              _context2.next = 33;
+            case 26:
+              _context2.next = 32;
               break;
 
-            case 29:
-              _context2.prev = 29;
+            case 28:
+              _context2.prev = 28;
               _context2.t0 = _context2["catch"](14);
               _didIteratorError = true;
               _iteratorError = _context2.t0;
 
-            case 33:
+            case 32:
+              _context2.prev = 32;
               _context2.prev = 33;
-              _context2.prev = 34;
 
               if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                 _iterator["return"]();
               }
 
-            case 36:
-              _context2.prev = 36;
+            case 35:
+              _context2.prev = 35;
 
               if (!_didIteratorError) {
-                _context2.next = 39;
+                _context2.next = 38;
                 break;
               }
 
               throw _iteratorError;
 
+            case 38:
+              return _context2.finish(35);
+
             case 39:
-              return _context2.finish(36);
+              return _context2.finish(32);
 
             case 40:
-              return _context2.finish(33);
-
-            case 41:
               _i++;
               _context2.next = 9;
               break;
 
-            case 44:
-              console.log(finalArr); // for (let i of arr){
+            case 43:
+              //console.log(finalArr)
+              // for (let i of arr){
               //     if (i != id) {
               //         fri = await pool.query(
               //             "SELECT username, user_id, profile_pic_id FROM users WHERE  user_id = $1 ",
@@ -165,28 +165,27 @@ function () {
               //         console.log(fri.rows[0])
               //     }
               // }
-
               chatsInfo = {
                 chatRoom: chatrooms.rows,
                 chattingWith: finalArr
               };
               res.json(chatsInfo); //res.json(finalArr);
 
-              _context2.next = 53;
+              _context2.next = 51;
               break;
 
-            case 49:
-              _context2.prev = 49;
+            case 47:
+              _context2.prev = 47;
               _context2.t1 = _context2["catch"](1);
               console.error(_context2.t1);
               res.status(500).json("server error");
 
-            case 53:
+            case 51:
             case "end":
               return _context2.stop();
           }
         }
-      }, null, null, [[1, 49], [14, 29, 33, 41], [34,, 36, 40]]);
+      }, null, null, [[1, 47], [14, 28, 32, 40], [33,, 35, 39]]);
     }
   }, {
     key: "findChat",
@@ -198,29 +197,29 @@ function () {
             case 0:
               _context3.prev = 0;
               member = req.params.firstId;
-              otherMember = req.params.secondId;
-              console.log(otherMember);
-              _context3.next = 6;
+              otherMember = req.params.secondId; //console.log(otherMember)
+
+              _context3.next = 5;
               return regeneratorRuntime.awrap(pool.query("SELECT * FROM chats WHERE $1 = any (members) AND $2 = any (members)", [member, otherMember]));
 
-            case 6:
+            case 5:
               chatroom = _context3.sent;
               res.json(chatroom.rows[0]);
-              _context3.next = 14;
+              _context3.next = 13;
               break;
 
-            case 10:
-              _context3.prev = 10;
+            case 9:
+              _context3.prev = 9;
               _context3.t0 = _context3["catch"](0);
               console.error(_context3.t0);
               res.status(500).json("server error");
 
-            case 14:
+            case 13:
             case "end":
               return _context3.stop();
           }
         }
-      }, null, null, [[0, 10]]);
+      }, null, null, [[0, 9]]);
     }
   }]);
 
