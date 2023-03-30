@@ -20,19 +20,17 @@ import TextField from '@mui/material/TextField';
 
 // let socket
 // const ENDPOINT = 'http://localhost:3003'
+let receiverId
 
 const Chat = (props) => {
     const context = useContext(Context);
     let userId = context.userInfo.user_id
     let chatID = parseInt(context.currChat.chatId)
     const socket = useRef()
-
+    if (chatID) {
+        receiverId = context.currChat.members.find((id) => id != userId)
+    }
     //console.log(context.currChat )
-    useEffect(() => {
-        if(context.sendMessage !== null) {
-            socket.current.emit('send-message', context.sendMessage)
-        }
-    }, [context.sendMessage]) 
 
     //depend on current user connected 
     useEffect(() => {
@@ -43,6 +41,34 @@ const Chat = (props) => {
             
         })//catch emitted users on client side
     }, [userId])
+
+    //send message to socket server 
+    useEffect(() => {
+        if(context.sendMessage !== null) {
+            socket.current.emit('send-message', context.sendMessage)
+        }
+    }, [context.sendMessage]) 
+
+
+    //receive message from socket server 
+    useEffect(() => {
+        socket.current.on("receive-message", (data) => {
+            context.setRecieveMessage(data)
+        })
+    }, [])
+
+    useEffect(() => {
+        if(context.recieveMessage !== null && context.recieveMessage.receiverId == receiverId){
+            context.setMessages([...context.messages, context.recieveMessage])
+        }
+    }, [context.recieveMessage])
+    
+
+
+        // console.log(context.currChat.members)
+        // console.log(receiverId)
+
+
 
 
     const getChat = async () => {
@@ -118,8 +144,8 @@ const Chat = (props) => {
         } catch (error) {
             console.log(error)
         }
-
-        const receiverId = context.currChat.members.find((id) => id != userId)
+        //send message to socket server 
+        //const receiverId = context.currChat.members.find((id) => id != userId)
         context.setSendMessage ({...context.message, receiverId})
     }
 

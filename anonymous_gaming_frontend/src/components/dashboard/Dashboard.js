@@ -143,11 +143,11 @@ const Dashboard = (props) => {
         
     <Grid container columns={2} >
       <Grid sx={{ mt:2, ml:40, width: 500}}>
-        <UserPostDisplay/>
+        <UserPostDisplay/> 
       </Grid>
 
       <Grid sx={{ mt:6, ml:2, width: 600}}>    
-      <Userstats  userInfo={context.userInfo} />
+      <div class="sticky-top"> <Userstats  userInfo={context.userInfo} /> </div>
       </Grid>
     </Grid>
 
